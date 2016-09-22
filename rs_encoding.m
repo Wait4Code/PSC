@@ -7,9 +7,10 @@ function rs_encoded = rs_encoding( msg, k, m )
 %   input is binary data flow
 %   output is rs-encoded decimal numbers
 %
+
 n = 2^m - 1; % codeword length
 
-decimal = bin2dec( fliplr( msg ) );
+decimal = bin2dec( msg );
 
 enc = comm.RSEncoder( n, k );
 

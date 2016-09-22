@@ -17,7 +17,7 @@ reed solomon codes
 
 reed-solomon codes are a subset of __BCH codes__
 
-it's characteristics are :
+characteristics are :
 
 - error-correcting code based on univariate polynomials over finite fields
 

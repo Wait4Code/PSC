@@ -18,7 +18,5 @@ alpha=alphaN*sqrt(f);
 beta=betaN*f;
 gamma=(alpha + 1i*beta);
 H=exp(-gamma*l);
-%plot(f,abs(H));
+plot(f,abs(H));
 h=ifft(H);
-%h = [h(257:512) h(1:256)];
-plot(abs(h));

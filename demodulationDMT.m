@@ -1,8 +1,8 @@
 function [suite_bits,x]=demodulationDMT(signal_recu,h_eval_mod,nombre_canaux,prefixe_cyclique,tab)
  
-% signal_recu signal reçu après passage dans le canal
-% h_eval_mod module de la réponse impulsionnelle du canal, identifiée
-% nombre_canaux nombre de canaux utilisés
+% signal_recu signal reÃ§u aprÃ¨s passage dans le canal
+% h_eval_mod module de la rÃ©ponse impulsionnelle du canal, identifiï¿½e
+% nombre_canaux nombre de canaux utilisï¿½s
 % prefixe_cyclique longueur du CP
 % tab vecteur table allocation des bits
  
@@ -11,7 +11,7 @@ function [suite_bits,x]=demodulationDMT(signal_recu,h_eval_mod,nombre_canaux,pre
 % Initialisation %
 %%%%%%%%%%%%%%%%%%
  
-N=nombre_canaux; % Nombre de canaux utilisés
+N=nombre_canaux; % Nombre de canaux utilisï¿½s
 v=prefixe_cyclique; % Longueur du CP
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21,19 +21,19 @@ v=prefixe_cyclique; % Longueur du CP
 signal_recu=signal_recu(v+1:2*N+v); 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FFT et égalisation du signal % 
+% FFT et ï¿½galisation du signal % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
 x_fft=fft(signal_recu); 
-x=x_fft(1:N); % suppression des coordonnées conjuguées introduites avant IFFT 
-x=x./h_eval_mod; % égalisation
+x=x_fft(1:N); % suppression des coordonnï¿½es conjuguï¿½es introduites avant IFFT 
+x=x./h_eval_mod; % Ã©galisation
  
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Reconstruction des symboles et démodulation %
+% Reconstruction des symboles et dï¿½modulation %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
-symb=[]; % Contiendra les symboles sous forme décimale
+symb=[]; % Contiendra les symboles sous forme dÃ©cimale
 for i=1:N
     symb(i)=demodulationQAM(real(x(i)),imag(x(i)),2^(tab(i)));
 end
@@ -41,6 +41,7 @@ end
 % suite de bits
 suite_bits=[]; 
 for j=1:N
-    suite_bits=[suite_bits decodage_symboles(symb(j),2^(tab(j)))]; 
+    suite_bits=[suite_bits decodage_symb(symb(j),2^(tab(j)))];
+    % suite_bits=[suite_bits decodage_symboles(symb(j),2^(tab(j)))];% prof
 end
 

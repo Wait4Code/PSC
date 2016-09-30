@@ -1,4 +1,4 @@
-function suite_symb=demodulationQAM(Xi,Xq,M)
+function symb_deci=demodulationQAM(Xi,Xq,M)
 
 % Associe aux symboles complexes, leur ecriture decimale en fonction 
 % de symbole complexe de partie reelle Xi et imaginaire Xq 
@@ -9,4 +9,4 @@ function suite_symb=demodulationQAM(Xi,Xq,M)
 % M est le nombre de points de la constellation.
 
 
-suite_symb=qamdemod(complex(Xi,Xq),M); % Démodule les symboles sur une constellation de M points
+symb_deci=qamdemod(complex(Xi,Xq),M); % Dï¿½module les symboles sur une constellation de M points

@@ -13,18 +13,16 @@ nb_canaux = 4;
 snr = [];
 
 for i = 1:nb_canaux
-  snr( i ) = 10000; % plus snr++ mieux c'est
+  snr( i ) = randi( 10000 );
 end
-
 disp( snr );
 
 % number of bits per channel
 b = [];
 
 for i = 1:nb_canaux
-  b( i ) = log2( 1 + ( snr( i ) / ( snr_gap * gamma ) ) );
-  b( i ) = floor( b( i ) );
-  
+  b( i ) = floor( log2( 1 + ( snr( i ) / ( snr_gap * gamma ) ) ) );
+
   if b( i ) < 0
     b( i ) = 0;
   elseif b( i ) > 15
@@ -33,8 +31,3 @@ for i = 1:nb_canaux
 end
 disp( b );
 
-speedrate = 0;
-for i = 1:nb_canaux
-  speedrate = speedrate + ( b( i ) * 4.3125e3 );
-end
-disp( speedrate );

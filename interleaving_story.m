@@ -10,7 +10,10 @@ msg = [ 0 1 0 1 1 0 1 1 1 1 1 1 0 1 0 1 0 1  ];
 disp( 'msg=' );
 disp( msg );
 
+% append d symbols of delay to end of message
 msg = [ msg zeros( 1, delay ) ];
+
+% convolutional interleaver
 intrvled = convintrlv( msg, nrows, slope );
 
 disp( 'intrvled=' );

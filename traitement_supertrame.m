@@ -9,20 +9,22 @@ function supertrame=traitement_supertrame(trame_init,generateur_crc,tab,prefixe_
 % préfixe cyclique correspond le nombre de préfixe qu'on va ajouter au
 % début du signal à transmettre.
 
-N=length(tab) % nb de canaux
-taille_sous_trame=sum(tab); %taille de sous-trame
-v=prefixe_cyclique; %taille de prefixe
+N = length( tab ) % nb de canaux
+taille_sous_trame = sum( tab ); %taille de sous-trame
+v = prefixe_cyclique; %taille de prefixe
 
-trame = codage_crc(trame_init,generateur_crc);
+trame = codage_crc( trame_init, generateur_crc );
 
 % reed-solomon
+
 % interleaver
+interleaved = interleaver( trame, 3, 2 );
 
-n=floor(length(trame)/taille_sous_trame); % n est nb de sous-trame complet
+n = floor( length( interleaved ) / taille_sous_trame ); % n est nb de sous-trame complet
 
-supertrame=[];
-for i=1:n
-   supertrame(i)=bits2signal(trame((i-1)*N+1:i*N),tab,v);
+supertrame = [];
+for i = 1:n
+   supertrame( i ) = bits2signal( interleaved( (i-1)*N+1:i*N ), tab, v );
 end
         
         

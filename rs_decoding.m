@@ -16,4 +16,4 @@ dec = comm.RSDecoder( n, k );
 
 decodedData = step( dec, decimal );
 
-rs_decoded = dec2bin( decodedData );
+rs_decoded = dec2bin( decodedData ) ;

@@ -23,10 +23,11 @@ v = prefixe_cyclique; % taille de prefixe
 trame = codage_crc( trame_init, generateur_crc );
 
 % reed-solomon
-trame = trame'; % transpose frame matrix
+encoded = rs_encoding( trame', 1, length( trame ) );
 
 % interleaver
-interleaved = interleaver( trame, 3, 2 );
+interleaved = interleaver( encoded', 1, 4 );
+interleaved = interleaved';
 
 % compute supertrame
 n = floor( length( interleaved ) / taille_sous_trame ); % n est nb de sous-trame complet

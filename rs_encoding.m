@@ -10,10 +10,12 @@ function rs_encoded = rs_encoding( msg, k, m )
 
 n = 2^m - 1; % codeword length
 
-decimal = bin2dec( msg );
+decimal = bin2dec( num2str( msg ) );
 
 enc = comm.RSEncoder( n, k );
 
 encodedData = step( enc, decimal );
 
-rs_encoded = dec2bin( encodedData );
+tmp = ( str2num(  dec2bin( encodedData ) ) );
+
+rs_encoded = de2bi( tmp( 1 ) )';

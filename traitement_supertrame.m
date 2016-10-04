@@ -17,10 +17,15 @@ function supertrame = traitement_supertrame( trame_init, generateur_crc, tab, pr
 %
 
 N = length( tab ) % nb de canaux
+%taille_trame_init=length(trame_init);
 taille_sous_trame = sum( tab ); % taille de sous-trame
 v = prefixe_cyclique; % taille de prefixe
 
-trame = codage_crc( trame_init, generateur_crc );
+fast_buffer_trame=trame_init(0:taille_trame_init/2);
+interleaved_buffer_trame=trame_init(taille_trame_init/2:taille_trame_init);
+
+%%trame1 = codage_crc( fast_buffer_trame, generateur_crc );
+%%trame2 = codage_crc( interleaved_buffer_trame, generateur_crc );
 
 % reed-solomon
 trame = trame'; % transpose frame matrix
@@ -29,10 +34,12 @@ trame = trame'; % transpose frame matrix
 interleaved = interleaver( trame, 3, 2 );
 
 % compute supertrame
-n = floor( length( interleaved ) / taille_sous_trame ); % n est nb de sous-trame complet
+%trame_codee= [trame1 trame2];
+trame_codee= interleaved;
+n = floor( length( trame_codee ) / taille_sous_trame ); % n est nb de sous-trame complet
 
 supertrame = zeros( 1, n );
 for i = 1:n
-   supertrame( i ) = bits2signal( interleaved( (i-1)*N+1:i*N ), tab, v );
+   supertrame( i ) = bits2signal( trame_codee( (i-1)*N+1:i*N ), tab, v ); % Pb tableau de signal temporel ??
 end
 

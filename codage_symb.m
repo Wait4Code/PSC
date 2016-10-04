@@ -1,5 +1,5 @@
 function symb_deci=codage_symb(suite_bits,M)
-
+%function symb_deci=codage_symb(suite_bits,k)
 % La fonction codage_symb permet de coder une suite binaire pour
 % obtenir un symbole décimal associée.
 

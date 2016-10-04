@@ -23,7 +23,7 @@ v = prefixe_cyclique; % taille de prefixe
 trame = codage_crc( trame_init, generateur_crc );
 
 % reed-solomon
-encoded = rs_encoding( trame', 1, length( trame ) );
+encoded = rs_encoding( trame', 3, 3 );
 
 % interleaver
 interleaved = interleaver( encoded', 1, 4 );

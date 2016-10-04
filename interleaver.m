@@ -1,4 +1,18 @@
 function interleaved = interleaver( msg, nrows, slope )
+% Entrelaceur convolutionnel
+%
+% Cette fonction prend un message binaire et permute ses symboles
+% à l'aide de registres à décalage
+%
+% arguments :
+% - msg is the data to interleave
+% - nrows is the number of shift registers
+% - slope is the delay applied to each bit of the signal by shift registers
+%
+% examples :
+%
+%     interleaver( [ 0 0 1 0 1 1 0 0 ], 5, 3 )
+%
 
 delay = nrows * ( nrows - 1 ) * slope;
 

@@ -4,24 +4,25 @@
 % config
 snr_gap = 10^( 9.5 / 10 ); % autour de 9.5 db pour Pe=10e-7 sur une QAM
 gamma = 10^( 6 / 10 ); % autour de 6 db environ
-nb_canaux = 4;
+nb_canaux = 3;
 
 % channel assessment
 % [ H_moy, H_moy_abs, bruit_moy_abs, SNR ] = eval_canaux( nb_canaux, h_reel, pref_cycl );
 
 % sample snr
-SNR = [];
+SNR = [ 1 0.4 0.1 ];
+%SNR = zeros( );
 
-for i = 1:nb_canaux
-  SNR( i ) = randi( 10000 );
-end
+%for i = 1:nb_canaux
+%  SNR( i ) = [];
+%end
 disp( SNR );
 
 % number of bits per channel
-b = [];
+b = zeros( 1, nb_canaux );
 
 for i = 1:nb_canaux
-  b( i ) = round( log2( 1 + SNR( i ) / ( snr_gap * gamma ) ) );
+  b( i ) = round( log2( 1 + SNR( i ) ) );
 
   if b( i ) < 0
     b( i ) = 0;

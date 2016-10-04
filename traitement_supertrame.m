@@ -28,10 +28,11 @@ interleaved_buffer_trame=trame_init(taille_trame_init/2:taille_trame_init);
 %%trame2 = codage_crc( interleaved_buffer_trame, generateur_crc );
 
 % reed-solomon
-trame = trame'; % transpose frame matrix
+encoded = rs_encoding( trame', 3, 3 );
 
 % interleaver
-interleaved = interleaver( trame, 3, 2 );
+interleaved = interleaver( encoded', 1, 4 );
+interleaved = interleaved';
 
 % compute supertrame
 %trame_codee= [trame1 trame2];

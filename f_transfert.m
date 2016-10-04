@@ -1,8 +1,9 @@
+function h=f_transfert(l,d)
 %{
     Calcul de la fonction de transfert de la ligne
+    l [entier]      longueur de la ligne
+    d [flottant]    diametre du cable
 %}
-l=3000; %longueur de la ligne
-d=0.0005; %diametre du cable
 D=3*d/2; %epaisseur de l'isolant
 ep=8.854187e-12*1.5;%permittivité vide * permittivé du relative
 u0=4*pi*1e-7;
@@ -27,9 +28,5 @@ H=exp(-gamma*l);
 symetrique=fliplr(conj(H));
 H=[H symetrique];
 
-%figure(1);
-%plot(abs(H));
 h=abs(ifft(H));
-%figure(2);
-%plot(h);
 

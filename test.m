@@ -4,11 +4,12 @@
 longueur_ligne=3000;
 diametre_ligne=0.0005;
 % préciser nombre de canaux
-nb_canaux= 225; %nombre de canaux en downstream
+nb_canaux= 10; %nombre de canaux en downstream
 % récupération de la réponse impulsionnelle du canal
-h_canal=f_transfert(longueur_ligne, diametre_ligne);
+%h_canal=f_transfert(longueur_ligne, diametre_ligne);
+h_canal=[1 2 3 4 5]
 % taille préfixe cyclique
-pref_cyclique=length(h_canal);
+pref_cyclique=6;
 
 
 %%%%%%%%%

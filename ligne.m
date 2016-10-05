@@ -13,8 +13,10 @@ sig_bruite  [vecteur] signal en sortie de ligne
 %}
 
 
-snr=6;
+snr=40; %SNR voulu pour le bruit blanc sur la ligne
 
-sig_att = conv2(sig_mod,h);
-t=0:1:607;
-sig_bruite = awgn(sig_att,snr);%+16*sin(1e5*t);
+sig_att = conv2(sig_mod,h); %atténuation du signal par la ligne
+t=0:1:247;
+sig_bruite_ponc = sig_att-sin(t); %bruit ponctuel à une fréquence donnée
+sig_bruite = awgn(sig_bruite_ponc,snr); %bruitage blanc
+sig_bruite = sig_bruite_ponc

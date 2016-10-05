@@ -11,8 +11,10 @@ SIG=fft(sig);
 SIG=SIG(1:95);
 
 %Se : signal en sortie de ligne
-Se=ligne(SIG,h,6);
+Se=ligne(SIG,h);
 figure(1)
 plot(abs(SIG))
+figure(3)
+plot(abs(fft(abs(SIG))));
 figure(2)
 plot(abs(Se));

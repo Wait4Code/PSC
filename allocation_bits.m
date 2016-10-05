@@ -13,12 +13,16 @@ function b= allocation_bits(SNR)
 
       if b( i ) < 0
         b( i ) = 0;
+        
       elseif b( i ) > 15
         b( i ) = 15;
+        
       end
     end
+    
+    
     disp( b );
-
+    
     plot( 1:nb_canaux, b );
     
 end

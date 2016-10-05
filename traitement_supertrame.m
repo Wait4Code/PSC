@@ -1,6 +1,6 @@
 function supertrame = traitement_supertrame( trame_init, generateur_crc, tab, prefixe_cyclique )
 % Traitement de la supertrame
-%
+%git pull
 % Cette fonction prend une supertrame en entrée et renvoie la signal en
 % temps à transmettre dans les canal.
 %

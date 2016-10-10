@@ -31,10 +31,14 @@ bits_canal= allocation_bits(SNR);
 % Exécution du cycle modulation/transmission/démodulation
 supertrame = traitement_supertrame( bits_envoyes, generateur_crc, bits_canal, prefixe_cyclique);%generateur crc??
 supertrame_trans=simu_canal(supertrame,h); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
+suite_bits_supertrame=[];
 for i= 1:68 %68 sous-trame dans 1 supertrame
     [suite_bits_out,x_demod]=demodulationDMT(supertrame_trans(i),H_moy,nb_canaux,pref_cyclique,bits_canal); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
+    suite_bits_supertrame= [suite_bits_supertrame suite_bits_out];
+end
+    suite_bits_final=desassemblage_supertrame(suite_bits_supertrame);
     disp(suite_bits_out); %bits reçu 
     plot(suite_bits_out);
     erreurs=sum(xor(suite_bits_in,suite_bits_out)) %nombre d'erreurs dans la sous-trame i
-end
+
 %

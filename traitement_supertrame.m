@@ -24,11 +24,14 @@ v = prefixe_cyclique; % taille de prefixe
 fast_buffer_trame = trame_init( 1:( floor( taille_trame_init/2 ) ) );
 interleaved_buffer_trame = trame_init( ( floor( taille_trame_init/2 ) ):taille_trame_init );
 
+trame= codage_crc(trame_init,generateur_crc);
 %%trame1 = codage_crc( fast_buffer_trame, generateur_crc );
 %%trame2 = codage_crc( interleaved_buffer_trame, generateur_crc );
 
 % reed-solomon
+
 encoded = rs_encoding( trame_init', 5, 3 );
+
 
 % interleaver
 interleaved = interleaver( encoded', 3, 2 );

@@ -1,0 +1,5 @@
+function suite_bits_final= desassemblage_supertrame(suite_bits_supertrame)
+{
+    trame_deinterleaver = deinterleaver(suite_bits_supertrame, 1 , 4);
+    encoded = rs_encoding( trame', 3, 3 );
+}

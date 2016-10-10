@@ -18,10 +18,10 @@ SIG=fft(sig);
 Se=ligne(sig,h(1:60));
 figure(1)
 plot(sig)
-title('Signal modulé');
+title('Signal modulï¿½');
 figure(2)
 plot(abs(SIG));
-title('FFT signal modulé');
+title('FFT signal modulï¿½');
 figure(3)
 plot(Se);
 title('Signal en sortie de ligne');
@@ -29,3 +29,5 @@ figure(4)
 SE=fft(Se);
 plot(abs(SE));
 title('FFT en sortie de ligne');
+figure(5)
+plot(abs(h));

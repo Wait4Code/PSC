@@ -19,7 +19,7 @@ v=prefixe_cyclique; % Longueur du préfixe cyclique
 % A partir de la suite de symboles en entrée, on va former un symbole DMT
 % par parallélisation sur les N canaux. On appliquera ensuite une IFFT.
 
-suite_symboles_in=[suite_symboles_in conj(fliplr(suite_symboles_in))]; % On concatène la suite de symboles avec son symétrique
+suite_symboles_in=[suite_symboles_in 0 conj(fliplr(suite_symboles_in(2:N)))]; % On concatène la suite de symboles avec son symétrique
                                                   % hermitien en miroir. les valeur conjuguéez permetent 
                                                   % d'éliminer la partie
                                                   % imaginaire pendant IFFT

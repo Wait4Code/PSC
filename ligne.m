@@ -4,7 +4,7 @@ function sig_bruite=ligne(sig_mod,h)
 
 
 ---PARAMS---
-sig_mod     [vecteur]   signal modulé issu du modulateur
+sig_mod     [vecteur]   signal modulï¿½ issu du modulateur
 h           [vecteur]   fonction de transfert de la ligne
 
 ---RETURN---
@@ -13,10 +13,9 @@ sig_bruite  [vecteur] signal en sortie de ligne
 %}
 
 
-snr=40; %SNR voulu pour le bruit blanc sur la ligne
+snr=50; %SNR voulu pour le bruit blanc sur la ligne dB
 
-sig_att = conv2(sig_mod,h); %atténuation du signal par la ligne
-%t=0:1:247;
-%sig_bruite_ponc = sig_att-sin(t); %bruit ponctuel à une fréquence donnée
+sig_att = conv2(sig_mod,h); %attï¿½nuation du signal par la ligne
+
 sig_bruite = awgn(sig_att,snr); %bruitage blanc
-%sig_bruite = sig_bruite_ponc
+%sig_bruite = sig_att;

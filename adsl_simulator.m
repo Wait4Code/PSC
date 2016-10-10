@@ -26,9 +26,11 @@ bits_canal= allocation_bits(SNR);
 
  % --Création de la suite de bits à transmettre : somme du tableau
  % d'allocation des bits * 68  (plot la suite de bits)
+ %!!!!!!!!!!!!nb de bits tres grand, faut tenir compte du nb de bit que le les crc et rs va ajouter!!!!!!!!!!!!!!%
  bits_envoyes=gene_bits(sum(bits_canal)*68,0.5) % suite de bits à transmettre 
 
 % Exécution du cycle modulation/transmission/démodulation
+%!!!!!!!!!!! generateur crc non initialisé!!!!!!!!!!!!!%
 supertrame = traitement_supertrame( bits_envoyes, generateur_crc, bits_canal, prefixe_cyclique);%generateur crc??
 supertrame_trans=simu_canal(supertrame,h); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
 suite_bits_supertrame=[];

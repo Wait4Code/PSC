@@ -23,6 +23,6 @@ function b= allocation_bits(SNR)
     
     disp( b );
     
-    plot( 1:nb_canaux, b );
+    %plot( 1:nb_canaux, b );
     
 end

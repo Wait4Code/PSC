@@ -7,7 +7,7 @@ function suite_bits = decodage_symboles( suite_symboles, M )
 % M est l'indice de modulation utilisé pour coder cette suite.
 
 %%%%%%%%%%%%%%%%%%
-% Initialisation %
+%% Initialisation %
 %%%%%%%%%%%%%%%%%%
 
 k=log2(M); % k est le nombre de bits par symbole (M=2^k)

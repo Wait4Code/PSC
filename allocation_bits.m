@@ -27,5 +27,3 @@ for i = 1:nb_canaux
     b( i ) = 15;
   end
 end
-
-disp( b );

@@ -27,3 +27,9 @@ for i = 1:nb_canaux
     b( i ) = 15;
   end
 end
+
+message= sprintf('bits des canaux =');
+disp(message);
+disp(b);
+
+end

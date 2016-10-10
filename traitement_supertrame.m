@@ -13,7 +13,7 @@ function supertrame = traitement_supertrame( trame_init, generateur_crc, tab, pr
 %
 % examples :
 %
-%     supertrame = traitement_supertrame( [ 1 0 1 0 0 0 1 1 0 ], [ 1 ], [ 1, 5, 6 ], 2 );
+%    supertrame = traitement_supertrame( [ 1 0 1 0 0 0 1 1 0 ], [ 1 ], [ 1, 5, 6 ], 2 );
 %
 
 N = length( tab ); % nb de canaux
@@ -28,7 +28,7 @@ interleaved_buffer_trame = trame_init( ( floor( taille_trame_init/2 ) ):taille_t
 %%trame2 = codage_crc( interleaved_buffer_trame, generateur_crc );
 
 % reed-solomon
-encoded = rs_encoding( trame_init, 5, 3 );
+encoded = rs_encoding( trame_init', 5, 3 );
 
 % interleaver
 interleaved = interleaver( encoded', 3, 2 );

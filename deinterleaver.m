@@ -11,7 +11,7 @@ function msg = deinterleaver( interleaved, nrows, slope )
 %
 % examples :
 %
-%     deinterleaver( [ 0 0 1 0 0 0 0 0 0 0 ], 2, 3 )
+%     deinterleaver( [ 0 0 1 0 0 0 0 0 0 0 ], 3, 2 )
 %
 
 delay = nrows * ( nrows - 1 ) * slope;

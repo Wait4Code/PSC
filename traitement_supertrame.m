@@ -1,6 +1,6 @@
 function supertrame = traitement_supertrame( trame_init, generateur_crc, tab, prefixe_cyclique )
 % Traitement de la supertrame
-%git pull
+%
 % Cette fonction prend une supertrame en entrée et renvoie la signal en
 % temps à transmettre dans les canal.
 %
@@ -13,30 +13,30 @@ function supertrame = traitement_supertrame( trame_init, generateur_crc, tab, pr
 %
 % examples :
 %
-%     traitement_supertrame( [ 0 0 1 ], [ 1 ], [ 1, 5, 6 ], 2 );
+%     supertrame = traitement_supertrame( [ 1 0 1 0 0 0 1 1 0 ], [ 1 ], [ 1, 5, 6 ], 2 );
 %
 
-N = length( tab ) % nb de canaux
-%taille_trame_init=length(trame_init);
+N = length( tab ); % nb de canaux
+taille_trame_init = length( trame_init );
 taille_sous_trame = sum( tab ); % taille de sous-trame
 v = prefixe_cyclique; % taille de prefixe
 
-fast_buffer_trame=trame_init(0:taille_trame_init/2);
-interleaved_buffer_trame=trame_init(taille_trame_init/2:taille_trame_init);
+fast_buffer_trame = trame_init( 1:( floor( taille_trame_init/2 ) ) );
+interleaved_buffer_trame = trame_init( ( floor( taille_trame_init/2 ) ):taille_trame_init );
 
 %%trame1 = codage_crc( fast_buffer_trame, generateur_crc );
 %%trame2 = codage_crc( interleaved_buffer_trame, generateur_crc );
 
 % reed-solomon
-encoded = rs_encoding( trame', 3, 3 );
+encoded = rs_encoding( trame_init, 5, 3 );
 
 % interleaver
-interleaved = interleaver( encoded', 1, 4 );
+interleaved = interleaver( encoded', 3, 2 );
 interleaved = interleaved';
 
 % compute supertrame
 %trame_codee= [trame1 trame2];
-trame_codee= interleaved;
+trame_codee = interleaved;
 n = floor( length( trame_codee ) / taille_sous_trame ); % n est nb de sous-trame complet
 
 supertrame = zeros( 1, n );

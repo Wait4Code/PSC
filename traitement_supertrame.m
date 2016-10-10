@@ -32,15 +32,23 @@ encoded = rs_encoding( trame_init, 5, 3 );
 
 % interleaver
 interleaved = interleaver( encoded', 3, 2 );
-interleaved = interleaved';
 
 % compute supertrame
 %trame_codee= [trame1 trame2];
-trame_codee = interleaved;
+trame_codee = interleaved';
 n = floor( length( trame_codee ) / taille_sous_trame ); % n est nb de sous-trame complet
 
 supertrame = zeros( 1, n );
 for i = 1:n
-   supertrame( i ) = bits2signal( trame_codee( (i-1)*N+1:i*N ), tab, v ); % Pb tableau de signal temporel ??
+  % FIXME pb tableau de signal temporel ???
+  % Index exceeds matrix dimensions.
+  %
+  % Error in bits2signal (line 22)
+  %   suite_symb(i) = codage_symb( sous_trame( k:k+tab(i)-1 ), 2^( tab(i) ) );
+
+  % Error in traitement_supertrame (line 44)
+  %   supertrame( i ) = bits2signal( trame_codee( (i-1)*N+1:i*N ), tab, v );
+  %
+  supertrame( i ) = bits2signal( trame_codee( (i-1)*N+1:i*N ), tab, v );
 end
 

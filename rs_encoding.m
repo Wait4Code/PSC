@@ -1,4 +1,4 @@
-function rs_encoded = rs_encoding( msg, m, k )
+function rs_encoded = rs_encoding( msg, n, k )
 % RS - reed-solomon encoder
 %
 % this matlab script encodes the message in msg using an [ n, k ]
@@ -16,7 +16,7 @@ function rs_encoded = rs_encoding( msg, m, k )
 %
 % output :
 % - rs_encoded, reed-solomon encoded data ( vector of bits )
-% 
+%
 % note that output length is length( msg ) * k
 %
 % examples :
@@ -25,12 +25,10 @@ function rs_encoded = rs_encoding( msg, m, k )
 %
 
 % Each symbol that forms the input message and output codewords is an integer between 0 and 2M–1
-n = 2^m-1;
+% n = 2^(m)-1;
 
 % input value must be a numeric, column vector of bits
 enc = comm.RSEncoder( n, k, 'BitInput', true );
 
 % Encode the data
-c = step( enc, msg' );
-
-rs_encoded = de2bi( c );
+rs_encoded = step( enc, msg' );

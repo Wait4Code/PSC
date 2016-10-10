@@ -26,4 +26,4 @@ msg
 % Given below is the output of the program. Only decoded message, cnumerr and original
 % message are given here (with comments inline)
 
-% The default primitive polynomial over which the GF is defined is D^3+D+1 ( which is 1011 -> 11 in decimal).   
+% The default primitive polynomial over which the GF is defined is D^3+D+1 ( which is 1011 -> 11 in decimal).

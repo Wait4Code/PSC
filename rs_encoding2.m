@@ -1,4 +1,4 @@
-function rs_encoded = rs_encoding2( msg, k, m )
+function rs_encoded = rs_encoding2( msg, m )
 % RS - reed-solomon encoder
 %
 %   this matlab script encodes the message in msg using an [ n, k ]
@@ -8,17 +8,10 @@ function rs_encoded = rs_encoding2( msg, k, m )
 %   output is rs-encoded decimal numbers
 %
 
-n = 2^m - 1; % codeword length
+%m = 3; % Number of bits per symbol
+n = 5; % Codeword length
+%k = 3; % Message length
 
-decimal = bin2dec( num2str( msg ) );
+msg = gf( msg, m )
 
-enc = comm.RSEncoder( n, k );
-
-encodedData = step( enc, decimal );
-
-tmp = ( str2num(  dec2bin( encodedData ) ) );
-
-rs_encoded = de2bi( tmp( 1 ) )';
-
-    %Contact GitHub API Training Shop Blog About 
-
+rs_encoded = rsenc( msg, n, length( msg ) )

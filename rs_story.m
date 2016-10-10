@@ -1,12 +1,11 @@
-k = 1;
-m = 7;
-msg = [ 0 1 0 1 1 0 1 ];
+msg = [ 0 1 0 1 1 0 1 0 1 ]';
 
-encoded = rs_encoding( msg, k, m );
+encoded = rs_encoding( msg );
 disp( 'encoded frame :' );
 disp( reshape( encoded, [length( encoded ), 1]) );
 
-decoded = rs_decoding( encoded, k, m );
+decoded = rs_decoding( encoded );
 disp( 'decoded frame:' );
 disp( decoded );
+
 

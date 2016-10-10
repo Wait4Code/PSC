@@ -1,4 +1,4 @@
-function rs_decoded = rs_decoding( msg, k, m )
+function rs_decoded = rs_decoding( msg )
 % RS - reed-solomon decoder
 %
 %   this matlab script decodes the binary message in msg using an [ n, k ]
@@ -8,12 +8,10 @@ function rs_decoded = rs_decoding( msg, k, m )
 %   output is rs decoded reed integer values
 %
 
-n = 2^m - 1; % codeword length
+n = 5;
+k = 3;
 
-decimal = bin2dec( msg );
+deco = comm.RSDecoder( n, k );
+deco.BitInput = true;
 
-dec = comm.RSDecoder( n, k );
-
-decodedData = step( dec, decimal );
-
-rs_decoded = dec2bin( decodedData ) ;
+rs_decoded = step( deco, msg );

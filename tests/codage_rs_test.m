@@ -12,3 +12,8 @@ enco.BitInput=true;
 deco = step( enco, cod );
 disp(deco);
 disp (deco == msg);
+
+enc = comm.RSEncoder( 240, 224 ); %RSEncoder( 5, sqrt( length( msg ) ) )
+enc.BitInput=true;
+msg = randi( [0, 1], 28);
+cod = step( enc', msg );

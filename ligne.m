@@ -4,7 +4,7 @@ function sig_bruite=ligne(sig_mod,h)
 
 
 ---PARAMS---
-sig_mod     [vecteur]   signal modul� issu du modulateur
+sig_mod     [vecteur]   signal modulé issu du modulateur
 h           [vecteur]   fonction de transfert de la ligne
 
 ---RETURN---

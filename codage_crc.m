@@ -1,6 +1,6 @@
 function trame_code=codage_crc(trame,generateur)
 % k=taille(trame); m=taille(generateur-1);
-% trame=trame ajout m 0 � la fin
+% trame=trame ajout m 0 à la fin
 % reste= reste de division euclidienne de trame par generateur
 % derniere m valeur de trame = valeur dans reste
 % return trame_code= trame

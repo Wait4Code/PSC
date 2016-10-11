@@ -5,11 +5,11 @@ function suite_bits=decodage_symb(symb_deci,M)
 % peut simplifier la fonction en prenant un symbole décimal comme la
 % premiere parametre.
 
-% La fonction decodage_symboles permet de d�coder un symbole pour
-% obtenir la suite binaire associ�e.
+% La fonction decodage_symboles permet de décoder un symbole pour
+% obtenir la suite binaire associée.
 
-% symb_deci est un symbole sous forme d�cimale.
-% M est l'indice de modulation utilis� pour coder cette suite.
+% symb_deci est un symbole sous forme décimale.
+% M est l'indice de modulation utilisé pour coder cette suite.
 
 
 %%%%%%%%%%%%%%%%%%
@@ -30,7 +30,7 @@ string_bits=[string_bits b];
 
 
 % Comme la fonction 'dec2bin' renvoie une structure de type 'string' on va
-% transformer le r�sultat en vecteur num�rique.
+% transformer le résultat en vecteur numérique.
 suite_bits=[]; % Initialisation du vecteur qui contiendra la suite de bits
 for j=1:length(string_bits)
     suite_bits(j)=str2num(string_bits(j)); % La fonction dec2bin renvoie une 'string' qu'on transforme en vecteur

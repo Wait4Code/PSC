@@ -10,4 +10,4 @@ function symb_deci=demodulationQAM(Xi,Xq,M)
 
 Xi=Xi/50;
 Xq=Xq/50;
-symb_deci=qamdemod(complex(Xi,Xq),M); % D�module les symboles sur une constellation de M points
+symb_deci=qamdemod(complex(Xi,Xq),M); % Démodule les symboles sur une constellation de M points

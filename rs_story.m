@@ -7,5 +7,3 @@ disp( reshape( encoded, [length( encoded ), 1]) );
 decoded = rs_decoding( encoded, 5, 3 );
 disp( 'decoded frame:' );
 disp( decoded );
-
-

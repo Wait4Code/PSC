@@ -7,4 +7,4 @@ function symb_complexe=modulationQAM(symb_deci,M)
 % M est le nombre de points de la constellation.
 
 
-symb_complexe=qammod(symb_deci,M)*50; % Cela donne un nombre complexe 
+symb_complexe=qammod(symb_deci,M)*50; % Cela donne un nombre complexe

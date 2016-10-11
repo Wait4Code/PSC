@@ -1,7 +1,7 @@
 function symb_deci=demodulationQAM(Xi,Xq,M)
 
-% Associe aux symboles complexes, leur ecriture decimale en fonction 
-% de symbole complexe de partie reelle Xi et imaginaire Xq 
+% Associe aux symboles complexes, leur ecriture decimale en fonction
+% de symbole complexe de partie reelle Xi et imaginaire Xq
 % dans la cas d'une demodulation M-QAM.
 
 % Xi est la partie reelle du symbole complexe.

@@ -1,13 +1,13 @@
 function x=modulationDMT(suite_symboles_in,nombre_canaux,prefixe_cyclique)
 
-% La fonction modulationDMT réalise le traitement par paraléllisation de 
+% La fonction modulationDMT réalise le traitement par paraléllisation de
 % la suite de symboles reçus, éffectuer IFFT et ajouter le préfixe.
 % Elle renvoie un trame temporelle à transmettre.
 % suite_symboles_in suite des symboles complexes à transmettre
 % nombre_canaux nombre de canaux utilisés
 % prefixe_cyclique la longueur du CP
- 
- 
+
+
 N=nombre_canaux; % Nombre de canaux
 v=prefixe_cyclique; % Longueur du préfixe cyclique
 
@@ -20,7 +20,7 @@ v=prefixe_cyclique; % Longueur du préfixe cyclique
 % par parallélisation sur les N canaux. On appliquera ensuite une IFFT.
 
 suite_symboles_in=[suite_symboles_in 0 conj(fliplr(suite_symboles_in(2:N)))]; % On concatène la suite de symboles avec son symétrique
-                                                  % hermitien en miroir. les valeur conjuguéez permetent 
+                                                  % hermitien en miroir. les valeur conjuguéez permetent
                                                   % d'éliminer la partie
                                                   % imaginaire pendant IFFT
 x_ifft=ifft(suite_symboles_in,2*N); % On applique l'IFFT

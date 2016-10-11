@@ -12,8 +12,8 @@ function suite_bits = decodage_symboles( suite_symboles, M )
 
 k=log2(M); % k est le nombre de bits par symbole (M=2^k)
 longs=length(suite_symboles); % Nombre de symboles en entrée
-longb=longs*k; % Nombre de bits en sortie 
-string_bits=[]; % Initialisation de la 'string' qui contiendra la suite de bits 
+longb=longs*k; % Nombre de bits en sortie
+string_bits=[]; % Initialisation de la 'string' qui contiendra la suite de bits
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,7 +27,7 @@ end
 
 % Comme la fonction 'dec2bin' renvoie une structure de type 'string' on va
 % transformer le résultat en vecteur numérique.
-suite_bits=[]; % Initialisation du vecteur qui contiendra la suite de bits 
+suite_bits=[]; % Initialisation du vecteur qui contiendra la suite de bits
 for j=1:length(string_bits)
     suite_bits(j)=str2num(string_bits(j)); % La fonction dec2bin renvoie une 'string' qu'on transforme en vecteur
 end

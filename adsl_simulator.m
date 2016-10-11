@@ -27,7 +27,7 @@ bits_canal= allocation_bits(SNR);
  % --Création de la suite de bits à transmettre : somme du tableau
  % d'allocation des bits * 68  (plot la suite de bits)
  %!!!!!!!!!!!!nb de bits tres grand, faut tenir compte du nb de bit que le les crc et rs va ajouter!!!!!!!!!!!!!!%
- bits_envoyes=gene_bits(sum(bits_canal)*68,0.5) % suite de bits à transmettre 
+ bits_envoyes=gene_bits(sum(bits_canal)*68,0.5) % suite de bits à transmettre
 
 % Exécution du cycle modulation/transmission/démodulation
 %!!!!!!!!!!! generateur crc non initialisé!!!!!!!!!!!!!%
@@ -39,7 +39,7 @@ for i= 1:68 %68 sous-trame dans 1 supertrame
     suite_bits_supertrame= [suite_bits_supertrame suite_bits_out];
 end
     suite_bits_final=desassemblage_supertrame(suite_bits_supertrame);
-    disp(suite_bits_out); %bits reçu 
+    disp(suite_bits_out); %bits reçu
     plot(suite_bits_out);
     erreurs=sum(xor(suite_bits_in,suite_bits_out)) %nombre d'erreurs dans la sous-trame i
 

@@ -12,7 +12,7 @@ trame_rs = [];
 
 if N_rs > 0
   for i = 1:N_rs
-    encoded = rs_encoding( trame_init', 240, 224 );
+    encoded = rs_encoding( trame((i-1)*8*224+1:i*8*224), 240, 224 );
     trame_rs = [ trame_rs encoded' ];
   end
 else

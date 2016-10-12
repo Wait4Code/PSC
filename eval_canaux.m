@@ -1,4 +1,4 @@
-function [H_moy,H_moy_abs,bruit_moy,SNR]=eval_canaux(nb_canaux,h_reel,pref_cycl)
+function [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_reel,pref_cycl)
 
 % L'objectif est de calculer le SNR de chaque canal et de récupérer le
 % H_moy (H estimé)

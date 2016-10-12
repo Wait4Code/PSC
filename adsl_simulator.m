@@ -23,30 +23,36 @@ generateur_crc=[1 0 1 1 1 0 0 0 1];
 
 % Evaluation de la ligne et allocation des bits
 [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique); 
-bits_canal= allocation_bits(SNR);
+table_alloc= allocation_bits(SNR);
 
-taille_sous_trame=sum(bits_canal);
+taille_max_sous_trame=sum(table_alloc);
+message= sprintf('taille maximale de la sous-trame:%d\n',taille_max_sous_trame);
+disp(message);
+message= sprintf('taille maximale de la supertrame:%d\n',taille_max_sous_trame*68);
+disp(message);
 
 % calcule nb de bits initiale à generer %
-nb_bit_init = taille_sous_trame*68 - (8*(240-224))*(floor(taille_sous_trame/(8*240)));% enlever les bits de rs
+nb_bit_init = nb_bit_init -12; %interlever bits
+nb_bit_init = taille_max_sous_trame*68 - (8*(240-224))*(floor(taille_max_sous_trame/(8*224)));% enlever les bits de rs
 nb_bit_init = nb_bit_init - (length(generateur_crc)-1); % enlever les bits de crc.
-nb_bit_init = nb_bit_init -12 %interlever bits
+
 
  % --Création de la suite de bits à transmettre
- bits_envoyes=gene_bits(nb_bit_init,0.5) % suite de bits à transmettre
+ bits_generes=gene_bits(nb_bit_init,0.5); % suite de bits à transmettre
 
 % modulation/transmission/démodulation
-supertrame = traitement_supertrame( bits_envoyes, generateur_crc, bits_canal, pref_cyclique);%generateur crc??
+supertrame = traitement_supertrame( bits_generes, generateur_crc, table_alloc, pref_cyclique);
 supertrame_recue=simu_canal(supertrame,h); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
 
-suite_bits_supertrame=[];
-for i= 1:68 %68 sous-trame dans 1 supertrame
-    [suite_bits_out,x_demod]=demodulationDMT(supertrame_recue(i),H_moy,nb_canaux,pref_cyclique,bits_canal); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
-    suite_bits_supertrame= [suite_bits_supertrame suite_bits_out];
+suite_bits_supertrame_recue=[];
+for i= 1:68 %68 sous-trame dans 1 supertrame 
+    [suite_bits_recu,symbole_recu]=demodulationDMT(supertrame_recue(i),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
+    suite_bits_supertrame_recue= [suite_bits_supertrame_recue suite_bits_out]; %suite de bit reçue correspondant à la supertrame
 end
-    suite_bits_final=desassemblage_supertrame(suite_bits_supertrame);
-    plot(suite_bits_final); %bits reçu
-    plot(bits_envoyers);
+
+suite_bits_final=desassemblage_supertrame(suite_bits_supertrame_recue, generateur_crc); % deinterleaver / decodage rs / décodage crc
+plot(suite_bits_final); %bits reçu
+plot(bits_generes); %bits envoyés
     
 
 

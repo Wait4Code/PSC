@@ -13,7 +13,7 @@ sig_bruite  [vecteur] signal en sortie de ligne
 %}
 
 
-snr=60; %SNR voulu pour le bruit blanc sur la ligne dB
+snr=10; %SNR voulu pour le bruit blanc sur la ligne dB
 
 sig_att = conv2(sig_mod,h); %att�nuation du signal par la ligne
 

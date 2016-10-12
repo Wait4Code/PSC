@@ -31,7 +31,6 @@ end
 %% suite de bits
 suite_bits = [];
 for j = 1:N
-  suite_bits = [ suite_bits decodage_symb( symb(j), 2^( tab(j) ) ) ];
-  % suite_bits=[suite_bits decodage_symboles(symb(j),2^(tab(j)))];% prof
+  suite_bits = [ suite_bits decodage_symboles( symb(j), 2^( tab(j) ) ) ];
 end
 

@@ -7,8 +7,11 @@ function x = bits2signal( sous_trame, tab_alloc, prefixe_cyclique )
 % arguments :
 % - sous_trame est un supertrame sans la partie synchronisation
 % - tab est le vecteur d'allocation de bits
-% - préfixe cyclique correspond le nombre de préfixe qu'on va ajouter au
+% - préfixe cyclique correspond au nombre de préfixe qu'on va ajouter au
 %   début du signal à transmettre
+%
+% example :
+% bits2signal( [ 0 1 0 1 1 0 1 0 1 0 ], [ 1 3 1 ], 4 )
 %
 
 N = length( tab_alloc ); % nb de canaux
@@ -28,4 +31,3 @@ end
 
 x = modulationDMT( suite_symb_QAM, N, prefixe_cyclique ); % modulation dmt d'une sous-trame
 
-end

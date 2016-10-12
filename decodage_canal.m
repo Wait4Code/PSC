@@ -1,5 +1,20 @@
-function [suite_bits_decodee,err] = decodage_canal( trame, generateur_crc )
-taille_trame=length(trame);
+function [ suite_bits_decodee, err ] = decodage_canal( trame, generateur_crc )
+% Réalise le décodage de canal pour une suite de bits donné
+%
+% Cette suite de bits sera décodé RS puis CRC
+% selon les paramètres spécifiés en entrée
+%
+% inputs :
+% - suite_bits correspond à une suite de bits
+% - generateur_crc correspond à la matrice génératrice du codeur CRC
+%
+% output : suite de bits codée de taille ??
+%
+% example :
+% decodage_canal( [ 1 1 1 1 1 1 0 0 0 ], [ 1 0 1 1 1 0 0 0 1 ] )
+%
+
+taille_trame = length( trame );
 
 % reed-solomon
 N_check = floor( taille_trame / ( 8 * 224 ) );
@@ -13,10 +28,11 @@ if N_check > 0
     trame_rs = [ trame_rs encoded' ];
   end
 else
-    trame_rs = trame;
+  trame_rs = trame;
 end
 
-[trame_decode,err]=decodage_crc(trame_rs,generateur_crc);
+[ trame_decode, err ] = decodage_crc( trame_rs, generateur_crc );
+
 
 suite_bits_decodee=trame_decode;
-end
+

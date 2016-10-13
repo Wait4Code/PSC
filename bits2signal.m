@@ -25,7 +25,7 @@ k = 1;
 i=1;
 
 for i = 1:N
-  if tab_alloc(i)~=0  
+  if tab_alloc(i)~=0
       sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
       fprintf(' numero canal :%d\n',i);
       suite_symb(i) = codage_symb(sousTrame);

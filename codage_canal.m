@@ -16,7 +16,6 @@ function suite_bits_codee = codage_canal( suite_bits, generateur_crc, type_buffe
 %
 
 % suite_bits_codee = codage_canal( [ 0 1 0 1 1 0 1 1 ], [ 1 ], 1)
-
 %Ajout du codage CRC
 trame_crc = codage_crc( suite_bits, generateur_crc );
 taille_trame = length( trame_crc );
@@ -50,4 +49,5 @@ if type_buffer == 1    %Si il s'agit du buffer_interleaved
 end
 
 suite_bits_codee = trame_finale;
+
 end

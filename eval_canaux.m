@@ -23,47 +23,65 @@ for i= 0:nb_canaux-1
     suite_symb_QAM(i+1)=modulationQAM(suite_symb(i+1),4); % Génération des coordonnées complexe des symboles
 end
 
-x_mod=modulationDMT(suite_symb_QAM,nb_canaux,pref_cycl);
+x_mod = modulationDMT( suite_symb_QAM, nb_canaux, pref_cycl );
 
-% Calcul des coefficient Hk
+
+% initializing some variables for performance purposes
+h_eval_mod = ones( 1, nb_canaux ); % constant used by demodulationDMT
+                                   % we can do better here... see demodulationDMT
+
+H_moy = zeros( 1, nb_canaux );
+bruit_moy = zeros( 1, nb_canaux );
+bruit_moy_th = zeros( 1, nb_canaux );
+x_recu_total = zeros( 1, nb_trame_test );
+
+% calcul des coefficient Hk
 for k=1:nb_canaux
-    for i=1:nb_trame_test %On envoit 30 trames de test
-        y_recu=ligne(x_mod,h_reel,snr_reel,bruit_selectif);
-        [suite_bits_recu,symboles_recu]=demodulationDMT(y_recu,ones(1, nb_canaux), nb_canaux,pref_cycl,vect_alloc);
-        x_recu_total(i)= symboles_recu(k);
+    % on envoie 30 trames de test
+    for i = 1:nb_trame_test
+        % Elapsed time is 0.000452 seconds.
+        y_recu = ligne( x_mod, h_reel, snr_reel, bruit_selectif );
+        
+        % Elapsed time is 0.019520 seconds.
+        tic;
+        [ ~, symboles_recu ] = demodulationDMT( y_recu, h_eval_mod, nb_canaux, pref_cycl, vect_alloc );
+        toc;
+        
+        x_recu_total(i) = symboles_recu(k);
+        
         H(k)=H(k)+symboles_recu(k)/suite_symb_QAM(k);
     end
 
     H_moy(k)= H(k)/nb_trame_test;
     
-    %Calcule du bruit
-    for i=1:nb_trame_test
+    % calcul du bruit
+    for i = 1:nb_trame_test
         bruit_th(k)=bruit_th(k) + abs(x_recu_total(i))^2-abs(H_th(k))^2*abs(suite_symb_QAM(k))^2;
         bruit(k)=bruit(k) + abs(x_recu_total(i))^2-abs(H_moy(k))^2*abs(suite_symb_QAM(k))^2;
     end
-
-    bruit_moy(k) = bruit(k)/nb_trame_test;
-    bruit_moy_th(k) = bruit_th(k)/nb_trame_test;
+    
+    bruit_moy(k) = bruit(k) / nb_trame_test;
+    bruit_moy_th(k) = bruit_th(k) / nb_trame_test;
 end
 
-suite_symb_abs= abs(suite_symb_QAM).^2;
-H_moy_abs=abs(H_moy);
-
-figure();
-plot(H_moy_abs);
-title('Hmoy');
-
-figure();
-plot(abs(H_th));
-title('Hth');
-
-figure();
-plot(bruit_moy);
-title('Bruit');
-
-figure();
-plot(bruit_moy_th);
-title('Bruit_th');
+suite_symb_abs = abs(suite_symb_QAM).^2;
+H_moy_abs = abs(H_moy);
+% 
+% figure();
+% plot(H_moy_abs);
+% title('Hmoy');
+% 
+% figure();
+% plot(abs(H_th));
+% title('Hth');
+% 
+% figure();
+% plot(bruit_moy);
+% title('Bruit');
+% 
+% figure();
+% plot(bruit_moy_th);
+% title('Bruit_th');
 
 %Calcul du SNR
 for k=1:nb_canaux
@@ -74,8 +92,7 @@ figure();
 plot(SNR);
 title('SNR');
 
-message= sprintf('SNR des canaux =');
-disp(message);
+fprintf('SNR des canaux =\n');
 disp(SNR);
 
 end

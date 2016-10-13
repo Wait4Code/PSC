@@ -30,7 +30,10 @@ function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_a
     supertrame = [];
     for i = 1:n
       disp(sprintf('Longueur de la trame envoyee dans fonction : %d', length(trame( (i-1)*N+1:i*N ))));
-      supertrame( i ) = bits2signal( trame( (i-1)*N+1:i*N ), tab_alloc, prefixe_cyclique ); %bit2signal crée une sous-trame et la stocke dans supertrame
+      signal=bits2signal( trame( (i-1)*N+1:i*N ), tab_alloc, prefixe_cyclique );
+      disp(length(signal));
+      supertrame( (i-1)*length(signal)+1:i*length(signal)) = signal; %bit2signal crée une sous-trame et la stocke dans supertrame
+      disp('JE SUIS BIEN PASSE');
     end
 end
 

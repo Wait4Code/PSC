@@ -1,7 +1,7 @@
 function sig_fin_de_ligne=ligne(sig_mod,h,snr,filtre_ponc)
 %{
     Operation : signal * h + AWGN + bruit ponctuel
-    ce dernier étant représenté par un filtre bande stop passé
+    ce dernier ï¿½tant reprï¿½sentï¿½ par un filtre bande stop passï¿½
     en argument
 
 
@@ -18,7 +18,7 @@ sig_bruite  [vecteur] signal en sortie de ligne
 %}
 
 sig_att = conv2(sig_mod,h); %attï¿½nuation du signal par la ligne
-sig_bruite_blanc = awgn(sig_att,snr); %bruitage blanc
+sig_bruite_blanc = awgn(sig_att, snr, 'measured'); %bruitage blanc
 
 if filtre_ponc == false
     sig_fin_de_ligne = sig_bruite_blanc;

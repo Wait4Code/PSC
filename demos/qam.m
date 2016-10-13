@@ -9,5 +9,5 @@ end
 
 figure;
 plot( y, 'x' );
-axis( [ -200 200 -200 200 ] );
+axis( [ -5 5 -5 5 ] );
 title( 'Constellation de la 16-QAM' );

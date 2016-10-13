@@ -16,7 +16,7 @@ function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_a
     %    supertrame = traitement_supertrame( [ 1 0 1 0 0 0 1 1 0 ], [ 1 ], [ 1, 5, 6 ], 2 );
     %
 
-    N = length( tab_alloc ); % nb de canaux
+    N = sum( tab_alloc ); % nb de canaux
     taille_trame_init = length( bits_generes );
     taille_sous_trame = sum( tab_alloc ); % taille de sous-trame = la somme des bits alloués par cannal
 
@@ -28,7 +28,8 @@ function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_a
 
     n=68; % nombre de sous-trame dans la super-trame
     supertrame = [];
-    for i = 1:n  
+    for i = 1:n
+      disp(sprintf('Longueur de la trame envoyee dans fonction : %d', length(trame( (i-1)*N+1:i*N ))));
       supertrame( i ) = bits2signal( trame( (i-1)*N+1:i*N ), tab_alloc, prefixe_cyclique ); %bit2signal crée une sous-trame et la stocke dans supertrame
     end
 end

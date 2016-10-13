@@ -18,13 +18,20 @@ N = length( tab_alloc ); % nb de canaux
 message= sprintf('taille dune sous-trame:%d\n',length(sous_trame));
 disp(message);
 
-suite_symb = [];
+suite_symb = zeros(1,N);
 suite_symb_QAM = [];
 
 k = 1;
+i=1;
 
-for i = 1:N    
-  suite_symb(i) = codage_symb( sous_trame( k:k+tab_alloc(i)-1 ), 2^( tab_alloc(i) ) );
+for i = 1:N
+  sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
+  alloc=2^( tab_alloc(i) );
+  message= sprintf('taille dune sous-trame:%d\n',length(sous_trame));
+  disp(message);
+  disp('sousTrame : '+sousTrame);
+  disp('alloc : '+alloc);
+  suite_symb(i) = codage_symb(sousTrame, alloc );
   suite_symb_QAM(i) = modulationQAM( suite_symb(i), 2^( tab_alloc(i) ) ); % contient tout les symboles complexes d'une sous-trame sans le préfixe cyclique
   k = k + tab_alloc(i);
 end

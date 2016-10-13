@@ -31,10 +31,17 @@ disp(message);
 message= sprintf('taille maximale de la supertrame:%d\n',taille_max_sous_trame*68);
 disp(message);
 
-% calcule nb de bits initiale à generer %
-nb_bit_init = nb_bit_init -12; %interlever bits
-nb_bit_init = taille_max_sous_trame*68 - (8*(240-224))*(floor(taille_max_sous_trame/(8*224)));% enlever les bits de rs
-nb_bit_init = nb_bit_init - (length(generateur_crc)-1); % enlever les bits de crc.
+% calcule nb de bits initial à generer %
+
+nb_bit_init = taille_max_sous_trame*68;
+
+taille_fast_buffer=floor(nb_bit_init/2);
+taille_interleaver_buffer=nb_bit_init-taille_fast_buffer;
+taille_interleaver_buffer = taille_interleaver_buffer -12; %interlever bits
+taille_fast_buffer = taille_fast_buffer - (8*(240-224))*(floor(taille_fast_buffer/(8*224)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
+taille_interleaver_buffer = taille_interleaver_buffer - (8*(240-224))*(floor(taille_interleaver_buffer/(8*224)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
+nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
+
 
 
  % --Création de la suite de bits à transmettre

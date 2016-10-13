@@ -28,8 +28,7 @@ H=exp(-gamma*l);
 
 %ajout du symetrique de la réponse en frequence pour avoir un h(t)
 %p�riodique
-symetrique=fliplr(conj(H));
-H=[H symetrique];
+H=[H 0 conj(fliplr(H(2:length(H)-1)))];
 %Passage en temporel
 h=abs(ifft(H));
 h=h(1:100);

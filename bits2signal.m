@@ -27,11 +27,17 @@ i=1;
 for i = 1:N
   if tab_alloc(i)~=0  
       sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
-      message= sprintf(' numero canal :%d\n',i);
-      disp(message);
+      fprintf(' numero canal :%d\n',i);
       suite_symb(i) = codage_symb(sousTrame);
       suite_symb_QAM(i) = modulationQAM( suite_symb(i), 2^( tab_alloc(i) ) ); % contient tout les symboles complexes d'une sous-trame sans le préfixe cyclique
       k = k + tab_alloc(i);
+      %%%%
+      %TEST GUILLAUME POUR LENTEURS
+      %sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
+      %fprintf(' numero canal :%d\n',i);
+      %suite_symb_QAM(i) = qammod(bin2dec(num2str(sousTrame)),2^(tab_alloc(i)))*50;
+      %k = k + tab_alloc(i);
+      %%%%
   end
 end
 

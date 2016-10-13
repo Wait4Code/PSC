@@ -32,19 +32,19 @@ if N_rs > 0 %Si la trame est assez grande pour réaliser un codage RS
     encoded_trame = rs_encoding( trame_crc((i-1)*8*224+1:i*8*224), 240, 224 );
     trame_rs = [ trame_rs encoded_trame' ];
   end
-  trame_rs= [ trame_rs trame_rs_end ];
+  trame_rs_total= [ trame_rs trame_rs_end' ];
   
 else
-    trame_rs = trame_crc; % Si la trame n'est pas assez grande pour un codage RS
+    trame_rs_total = trame_crc; % Si la trame n'est pas assez grande pour un codage RS
 end
-trame_finale = trame_rs;
+trame_finale = trame_rs_total;
 
 disp('after rs:');
 disp(length(trame_finale));
 
 
 if type_buffer == 1    %Si il s'agit du buffer_interleaved
-  trame_finale = interleaver( trame_rs, 3, 2 );
+  trame_finale = interleaver( trame_finale, 3, 2 );
   disp('after interleaver:');
   disp(length(trame_finale));
 end

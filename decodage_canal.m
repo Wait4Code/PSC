@@ -21,6 +21,7 @@ N_check = floor( taille_trame / ( 8 * 224 ) );
 N_rs = floor( taille_trame / ( 8 * 240 ) );
 
 trame_rs = [];
+trame=trame';
 
 if N_check > 0
   for i = 1:N_rs
@@ -28,7 +29,7 @@ if N_check > 0
     trame_rs = [ trame_rs encoded' ];
   end
 else
-  trame_rs = trame;
+  trame_rs = trame';
 end
 
 [ trame_decode, err ] = decodage_crc( trame_rs, generateur_crc );

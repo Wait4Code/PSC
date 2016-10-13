@@ -40,7 +40,7 @@ x_mod=modulationDMT(suite_symb_QAM,nb_canaux,pref_cycl);
 for k=1:nb_canaux
     %message= sprintf('canal %d \n',k);
     %disp(message);
-    for i=1:nb_trame_test %On envoit 30 trames de test
+    for i=1:nb_trame_test %On envoit 10 trames de test
         %disp('symboles envoyes');
         %disp(suite_symb_QAM);
 

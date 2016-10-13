@@ -7,7 +7,7 @@
 longueur_ligne=3000;
 diametre_ligne=0.0005;
 % préciser nombre de canaux
-nb_canaux= 256; %nombre de canaux en downstream
+nb_canaux= 256; %nombre de canaux
 % récupération de la réponse impulsionnelle du canal
 h_canal=f_transfert(longueur_ligne, diametre_ligne);
 % taille préfixe cyclique
@@ -50,11 +50,16 @@ nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
 % modulation/transmission/démodulation
 supertrame = traitement_supertrame( bits_generes, generateur_crc, table_alloc, pref_cyclique,nombre_sous_trame);
 supertrame_recue=ligne(supertrame,h_canal,snr_reel, bruit_selectif); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
-
+save('adsl_simulator');
+%fprintf('Taille supertrame : %d\n', length(supertrame));
+%fprintf('Taille supertram recue : %d\n', length(supertrame_recue));
 suite_bits_supertrame_recue=[];
-for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame 
+for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame
+    %id1=(i-1)*(length(supertrame_recue)/nombre_sous_trame)+1;
+    %id2=i*(length(supertrame_recue)/nombre_sous_trame);
+    %fprintf('Indice 1 : %d\nIndice 2 : %d', id1, id2);
     [suite_bits_recu,symbole_recu]=demodulationDMT(supertrame_recue((i-1)*length(supertrame_recue)/nombre_sous_trame+1:i*length(supertrame_recue)/nombre_sous_trame),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
-    suite_bits_supertrame_recue= [suite_bits_supertrame_recue suite_bits_out]; %suite de bit reçue correspondant à la supertrame
+    suite_bits_supertrame_recue= [suite_bits_supertrame_recue suite_bits_recu]; %suite de bit reçue correspondant à la supertrame
 end
 
 suite_bits_final=desassemblage_supertrame(suite_bits_supertrame_recue, generateur_crc); % deinterleaver / decodage rs / décodage crc

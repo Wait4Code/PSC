@@ -1,4 +1,4 @@
-function [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_reel,pref_cycl,snr_reel)
+function [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_reel,pref_cycl,snr_reel,bruit_selectif)
 
 % L'objectif est de calculer le SNR de chaque canal et de récupérer le
 % H_moy (H estimé)
@@ -45,7 +45,7 @@ for k=1:nb_canaux
         %disp(suite_symb_QAM);
 
 
-        y_recu=ligne(x_mod,h_reel,snr_reel);
+        y_recu=ligne(x_mod,h_reel,snr_reel,bruit_selectif);
         %if (k==100)
             %figure;
             %plot(real(y_recu));

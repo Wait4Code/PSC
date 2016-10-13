@@ -24,6 +24,7 @@ disp('after crc:');
 disp(taille_trame);
 % reed-solomon
 N_rs = floor( taille_trame / ( 8 * 224 ) );
+trame_rs_end=trame_crc(N_rs*8*224+1:taille_trame);
 trame_rs = [];
 
 if N_rs > 0 %Si la trame est assez grande pour réaliser un codage RS
@@ -31,6 +32,8 @@ if N_rs > 0 %Si la trame est assez grande pour réaliser un codage RS
     encoded_trame = rs_encoding( trame_crc((i-1)*8*224+1:i*8*224), 240, 224 );
     trame_rs = [ trame_rs encoded_trame' ];
   end
+  trame_rs= [ trame_rs trame_rs_end ];
+  
 else
     trame_rs = trame_crc; % Si la trame n'est pas assez grande pour un codage RS
 end

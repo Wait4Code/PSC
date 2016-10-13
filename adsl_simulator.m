@@ -16,13 +16,13 @@ pref_cyclique=length(h_canal)+1;
 generateur_crc=[1 0 1 1 1 0 0 0 1];
 snr_reel=60;
 nombre_sous_trame=2;
-
+bruit_selectif=false;
 %%%%%%%%%
 % Cycle %
 %%%%%%%%%
 
 % Evaluation de la ligne et allocation des bits
-[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel); 
+[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel,bruit_selectif); 
 table_alloc= allocation_bits(SNR);
 
 taille_max_sous_trame=sum(table_alloc);
@@ -38,8 +38,8 @@ nb_bit_init = taille_max_sous_trame*nombre_sous_trame;% taille de deux sous tram
 taille_fast_buffer=floor(nb_bit_init/2);
 taille_interleaver_buffer=nb_bit_init-taille_fast_buffer;
 taille_interleaver_buffer = taille_interleaver_buffer -12; %interlever bits
-taille_fast_buffer = taille_fast_buffer - (8*(240-224))*(floor(taille_fast_buffer/(8*224)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
-taille_interleaver_buffer = taille_interleaver_buffer - (8*(240-224))*(floor(taille_interleaver_buffer/(8*224)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
+taille_fast_buffer = taille_fast_buffer - (8*(240-224))*(floor(taille_fast_buffer/(8*240)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
+taille_interleaver_buffer = taille_interleaver_buffer - (8*(240-224))*(floor(taille_interleaver_buffer/(8*240)))-(length(generateur_crc)-1);% enlever les bits de rs et crc
 nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
 
 
@@ -49,7 +49,7 @@ nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
 
 % modulation/transmission/démodulation
 supertrame = traitement_supertrame( bits_generes, generateur_crc, table_alloc, pref_cyclique,nombre_sous_trame);
-supertrame_recue=ligne(supertrame,h_canal,snr_reel); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
+supertrame_recue=ligne(supertrame,h_canal,snr_reel, bruit_selectif); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
 
 suite_bits_supertrame_recue=[];
 for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame 

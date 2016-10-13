@@ -3,7 +3,6 @@ addpath( '..' );
 generator = [ 1 0 1 1 1 0 0 0 1 ];
 msg = [ 0 1 0 1 1 0 1 0 1 ];
 
-
 y = codage_crc( msg, generator );
 
 fprintf( 'nombre de bits de codage ajoutés = length( generator ) - 1 = %d\n', length( generator ) - 1 );

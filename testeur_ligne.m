@@ -21,26 +21,31 @@ Fpass2=150;
 
 Hbp=filtre_bruit_ponc(Fs,Fpass1,Fstop1,Fstop2,Fpass2);
 
-%Se : signal en sortie de ligne
+%Exemple en mettant false, pas de bruit ponctuel :
+%Se=ligne(sig,h(1:60),10,false);
 Se=ligne(sig,h(1:60),10,Hbp);
+
 %{
 figure(1)
 plot(sig)
 title('Signal modulé');
-
+%}
+%{
 figure(2)
 plot(Se);
 title('Signal en sortie de ligne');
 %}
+%{%}
 figure(3)
 plot(abs(SIG));
 title('FFT signal modulé');
-
+%}
+%{%}
 figure(4)
 SE=fft(Se);
 plot(abs(SE));
 title('FFT en sortie de ligne');
-
+%}
 %{
 figure(5)
 plot(abs(h));

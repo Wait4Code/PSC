@@ -16,6 +16,8 @@ sig_bruite  [vecteur] signal en sortie de ligne
 
 %}
 
+
 sig_att = conv2(sig_mod,h); %att�nuation du signal par la ligne
 sig_bruite_blanc = awgn(sig_att,snr); %bruitage blanc
 sig_fin_de_ligne = filter(filtre_ponc,sig_bruite_blanc);
+

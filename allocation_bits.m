@@ -18,7 +18,7 @@ nb_canaux = length( snr );
 % number of bits per channel
 b = zeros( 1, nb_canaux );
 
-for i = 1:nb_canaux
+for i = 7:nb_canaux
   b( i ) = round( log2( 1 + snr( i ) / ( snr_gap * gamma ) ) );
 
   if b( i ) < 0
@@ -27,6 +27,8 @@ for i = 1:nb_canaux
     b( i ) = 15;
   end
 end
+b(32)=0;
+b(64)=0;
 
 message= sprintf('bits des canaux =');
 disp(message);

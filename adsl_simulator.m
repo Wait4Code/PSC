@@ -14,7 +14,7 @@ h_canal=f_transfert(longueur_ligne, diametre_ligne);
 pref_cyclique=length(h_canal)+1;
 % generateur crc
 generateur_crc=[1 0 1 1 1 0 0 0 1];
-
+snr_reel=60;
 
 
 %%%%%%%%%
@@ -22,7 +22,7 @@ generateur_crc=[1 0 1 1 1 0 0 0 1];
 %%%%%%%%%
 
 % Evaluation de la ligne et allocation des bits
-[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique); 
+[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel); 
 table_alloc= allocation_bits(SNR);
 
 taille_max_sous_trame=sum(table_alloc);
@@ -49,11 +49,11 @@ nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
 
 % modulation/transmission/démodulation
 supertrame = traitement_supertrame( bits_generes, generateur_crc, table_alloc, pref_cyclique);
-supertrame_recue=simu_canal(supertrame,h); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
+supertrame_recue=ligne(supertrame,h_canal,snr_reel); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
 
 suite_bits_supertrame_recue=[];
 for i= 1:68 %68 sous-trame dans 1 supertrame 
-    [suite_bits_recu,symbole_recu]=demodulationDMT(supertrame_recue(i),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
+    [suite_bits_recu,symbole_recu]=demodulationDMT(supertrame_recue((i-1)*length(supertrame_recue)/68+1:i*length(supertrame_recue)/68),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
     suite_bits_supertrame_recue= [suite_bits_supertrame_recue suite_bits_out]; %suite de bit reçue correspondant à la supertrame
 end
 

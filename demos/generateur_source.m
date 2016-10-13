@@ -1,4 +1,3 @@
-% Demo du générateur de source
 addpath( '..' );
 
 x = gene_bits( 250, 0.5 );

@@ -1,5 +1,4 @@
 addpath( '..' );
-set(gca,'XMinorTick','on','YMinorTick','on')
 
 nrows = 3;
 slope = 2;
@@ -16,6 +15,8 @@ for i = 1:max
   y(i) = length( interleaver( u, nrows, slope ) );
 end
 
+hold on
+axis manual
 subplot( 3, 1, 1 );
 plot( 1:max, y );
 xlabel( 'bits en entrée' );
@@ -38,3 +39,4 @@ title( 'Signal en sortie de l''entrelaceur' );
 
 fprintf( 'taille en entrée: %d\n', length( x ) );
 fprintf( 'taille en sortie: %d\n', length( y ) );
+

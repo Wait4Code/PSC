@@ -1,4 +1,4 @@
-function symb_complexe=modulationQAM(symb_deci,M)
+function symb_complexe = modulationQAM( symb_deci, M )
 
 % Associe à un symboles écrit en décimale, un symboles complexe
 % correspondant
@@ -6,5 +6,4 @@ function symb_complexe=modulationQAM(symb_deci,M)
 % symb_deci est le symbole décimal à moduler.
 % M est le nombre de points de la constellation.
 
-
-symb_complexe=qammod(symb_deci,M)*50; % Cela donne un nombre complexe
+symb_complexe = qammod( symb_deci, M ); % Cela donne un nombre complexe

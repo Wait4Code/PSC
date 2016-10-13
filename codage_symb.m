@@ -1,4 +1,4 @@
-function symb_deci = codage_symb( suite_bits, M )
+function symb_deci = codage_symb( suite_bits )
 % Codage symbole d'une suite binaire
 %
 % La fonction codage_symb permet de coder une suite binaire pour
@@ -11,9 +11,6 @@ function symb_deci = codage_symb( suite_bits, M )
 % retour :
 % - symb_deci est la suite des symboles sous forme décimale
 %
-
-% Initialisation
-k = log2( M ); % k est le nombre de bits par symbole (M=2^k)
 
 % Conversion des symboles
 str = num2str( suite_bits );

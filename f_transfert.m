@@ -30,11 +30,6 @@ H=exp(-gamma*l);
 %p�riodique
 symetrique=fliplr(conj(H));
 H=[H symetrique];
-figure();
-plot(abs(H));
 %Passage en temporel
 h=abs(ifft(H));
 h=h(1:100);
-figure();
-plot(h);
-

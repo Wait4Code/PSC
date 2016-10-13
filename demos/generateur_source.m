@@ -9,5 +9,5 @@ plot( x );
 title( 'Signal aléatoire binaire' );
 
 subplot( 2, 1, 2 );
-histogram( x ); 
+histogram( x );
 title( 'Histogramme' );

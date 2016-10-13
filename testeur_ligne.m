@@ -3,21 +3,26 @@ h=f_transfert(3000,0.0005);
 f1=1;
 f2=100;
 f3=200;
+f4=300;
 t=0:0.001:10*pi*2;
-
-sig1=sin(f1*2*pi*t);
-sig2=sin(f2*2*pi*t);
-sig3=sin(f3*2*pi*t);
-
+sig1=sin(pi*f1*t);
+sig2=sin(pi*f2*t);
+sig3=sin(pi*f3*t);
+sig4=sin(2*pi*f4*t);
 sig=sig1+sig2+sig3;
-
 SIG=fft(sig);
-%SIG=SIG(1:95);
 
+%paramètres du filtre bande stop
+Fs=400; %doit être égal à 2 fois la fréquence max
+Fpass1=50;
+Fstop1=75;
+Fstop2=125;
+Fpass2=150;
 
+Hbp=filtre_bruit_ponc(Fs,Fpass1,Fstop1,Fstop2,Fpass2);
 
 %Se : signal en sortie de ligne
-Se=ligne(sig,h(1:60),10);
+Se=ligne(sig,h(1:60),10,Hbp);
 %{
 figure(1)
 plot(sig)

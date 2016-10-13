@@ -20,7 +20,8 @@ function suite_bits_codee = codage_canal( suite_bits, generateur_crc, type_buffe
 %Ajout du codage CRC
 trame_crc = codage_crc( suite_bits, generateur_crc );
 taille_trame = length( trame_crc );
-
+disp('after crc:');
+disp(taille_trame);
 % reed-solomon
 N_rs = floor( taille_trame / ( 8 * 224 ) );
 trame_rs = [];
@@ -35,8 +36,14 @@ else
 end
 trame_finale = trame_rs;
 
+disp('after rs:');
+disp(length(trame_finale));
+
+
 if type_buffer == 1    %Si il s'agit du buffer_interleaved
   trame_finale = interleaver( trame_rs, 3, 2 );
+  disp('after interleaver:');
+  disp(length(trame_finale));
 end
 
 suite_bits_codee = trame_finale;

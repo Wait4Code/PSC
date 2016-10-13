@@ -1,4 +1,4 @@
-function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_alloc, prefixe_cyclique )
+function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_alloc, prefixe_cyclique,nombre_sous_trame )
     % Traitement de la supertrame
     %
     % Cette fonction prend une supertrame en entrée et renvoie la signal en
@@ -16,18 +16,27 @@ function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_a
     %    supertrame = traitement_supertrame( [ 1 0 1 0 0 0 1 1 0 ], [ 1 ], [ 1, 5, 6 ], 2 );
     %
 
-    N = sum( tab_alloc ); % nb de canaux
+    N = sum( tab_alloc ); % longueur d'une sous-trame
     taille_trame_init = length( bits_generes );
+    disp('taille trame init');
+    disp(taille_trame_init);
     taille_sous_trame = sum( tab_alloc ); % taille de sous-trame = la somme des bits alloués par cannal
-
+    
 
     fast_buffer_trame = bits_generes( 1:( floor( taille_trame_init/2 ) ) );
+    disp('taille fast_buffer');
+    taille_fast_buffer=length(fast_buffer_trame);
+    disp(taille_fast_buffer);
     interleaved_buffer_trame = bits_generes( ( floor( taille_trame_init/2 )+1 ):taille_trame_init );
-
+    disp('taille interleaved_buffer');
+    disp(length(interleaved_buffer_trame));
     trame=[codage_canal(fast_buffer_trame,generateur_crc,0) codage_canal(interleaved_buffer_trame,generateur_crc,1)]; %contient codage crc, rs et interleaver pour la partie interleaved_buffer 
 
-    n=68; % nombre de sous-trame dans la super-trame
+    n=nombre_sous_trame; % nombre de sous-trame dans la super-trame
     supertrame = [];
+    taille_trame_codee=length(trame);
+    disp('taille trame codée');
+    disp(taille_trame_codee);
     for i = 1:n
       disp(sprintf('Longueur de la trame envoyee dans fonction : %d', length(trame( (i-1)*N+1:i*N ))));
       signal=bits2signal( trame( (i-1)*N+1:i*N ), tab_alloc, prefixe_cyclique );

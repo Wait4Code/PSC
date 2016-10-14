@@ -62,14 +62,14 @@ end
 
 suite_symb_abs = abs(suite_symb_QAM).^2;
 H_moy_abs = abs(H_moy);
-% 
-% figure();
-% plot(H_moy_abs);
-% title('Hmoy');
-% 
-% figure();
-% plot(abs(H_th));
-% title('Hth');
+ 
+figure();
+plot(H_moy_abs);
+title('Hmoy');
+ 
+figure();
+plot(abs(H_th));
+title('Hth');
 % 
 % figure();
 % plot(bruit_moy);
@@ -84,15 +84,8 @@ for k = 1:nb_canaux
   SNR(k) = ( suite_symb_abs(k) * H_moy_abs(k) ) / bruit_moy(k);
 end
 
-fprintf('Taux erreur eval_canaux : %d\n', sum(xor(suite_bits,suite_bits_recue)));
-
-%fprintf('SNR des canaux = %d\n', error);
-
 figure();
 plot( SNR );
 title('SNR');
-
-disp('SNR des canaux = \n');
-disp(SNR);
 
 end

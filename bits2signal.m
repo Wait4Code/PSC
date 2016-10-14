@@ -15,7 +15,7 @@ function x = bits2signal( sous_trame, tab_alloc, prefixe_cyclique )
 %
 
 N = length( tab_alloc ); % nb de canaux
-fprintf( 'taille sous-trame: %d\n', length( sous_trame ) );
+%fprintf( 'taille sous-trame: %d\n', length( sous_trame ) );
 
 suite_symb = zeros( 1, N );
 suite_symb_QAM = zeros( 1, N );

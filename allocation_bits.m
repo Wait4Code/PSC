@@ -30,8 +30,8 @@ end
 b(32)=0;
 b(64)=0;
 
-message= sprintf('bits des canaux =');
-disp(message);
-disp(b);
+% message= sprintf('bits des canaux =');
+% disp(message);
+% disp(b);
 
 end

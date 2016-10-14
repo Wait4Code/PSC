@@ -14,8 +14,8 @@ h_canal=f_transfert(longueur_ligne, diametre_ligne);
 pref_cyclique=length(h_canal)+1;
 % generateur crc
 generateur_crc=[1 0 1 1 1 0 0 0 1];
-snr_reel=40;
-nombre_sous_trame=4;
+snr_reel=20;
+nombre_sous_trame=68;
 bruit_selectif=false;   %filtre_bruit_ponc(2200,125,275);
 
 % Cycle %
@@ -70,3 +70,23 @@ suite_bits_final = desassemblage_supertrame(suite_bits_supertrame_recue, generat
 
 fprintf('On genere %d bits et on en recoit %d\n', length(bits_generes), length(suite_bits_final));
 fprintf('Taux erreur final : %d\n', sum(xor(bits_generes, suite_bits_final)));
+
+% Réponse impulsionnelle
+figure,freqz(h_canal)
+title('Réponse impulsionnelle du canal');
+
+% Répartition des bits
+figure,bar(table_alloc,'w');
+title('Allocation des bits');
+xlabel('Numéro canal');
+ylabel('Bits/canal');
+
+% signal modulé et démodulé
+figure,subplot(2,1,1),stem(bits_generes(1:500));
+title('Comparaison signal entrant/signal démodulé');
+ylabel('valeur');
+xlabel('Canaux');
+subplot(2,1,2),stem(suite_bits_final(1:500));
+ylabel('valeur');
+xlabel('Canaux');
+

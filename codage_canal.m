@@ -25,7 +25,7 @@ trame_crc = codage_crc( suite_bits', generateur_crc );
 trame_crc = trame_crc';
 
 taille_trame = length( trame_crc );
-fprintf( 'after crc: %d\n', length( trame_crc ) );
+%fprintf( 'after crc: %d\n', length( trame_crc ) );
 
 % reed-solomon
 N_rs = floor( taille_trame / ( 8 * 224 ) );
@@ -45,12 +45,12 @@ else
 end
 trame_finale = trame_rs_total;
 
-fprintf( 'after rs: %d\n', length( trame_finale ));
+%fprintf( 'after rs: %d\n', length( trame_finale ));
 
 % Si il s'agit du buffer_interleaved
 if type_buffer == 1
   trame_finale = interleaver( trame_finale, 3, 2 );
-  fprintf( 'after interleaver: %d\n', length( trame_finale ) );
+  %fprintf( 'after interleaver: %d\n', length( trame_finale ) );
 end
 
 suite_bits_codee = trame_finale;

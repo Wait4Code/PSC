@@ -20,18 +20,18 @@ function supertrame = traitement_supertrame( bits_generes, generateur_crc, tab_a
 % taille de sous-trame = la somme des bits alloués par canal
 N = sum( tab_alloc );
 taille_trame_init = length( bits_generes );
-fprintf( 'taille trame init: %d\n', taille_trame_init );
+%fprintf( 'taille trame init: %d\n', taille_trame_init );
 
 fast_buffer_trame = bits_generes( 1:( floor( taille_trame_init/2 ) ) );
-fprintf( 'taille fast_buffer: %d\n', length( fast_buffer_trame ) );
+%fprintf( 'taille fast_buffer: %d\n', length( fast_buffer_trame ) );
 
 interleaved_buffer_trame = bits_generes( ( floor( taille_trame_init/2 )+1 ):taille_trame_init );
-fprintf( 'taille interleaved_buffer: %d\n', length( interleaved_buffer_trame ) );
+%fprintf( 'taille interleaved_buffer: %d\n', length( interleaved_buffer_trame ) );
 
 % contient codage crc, rs et interleaver pour la partie interleaved_buffer
 % la première partie de la trame n'est pas entrelacée alors que l'autre oui
 trame = [ codage_canal( fast_buffer_trame, generateur_crc, 0 ) codage_canal( interleaved_buffer_trame, generateur_crc, 1 ) ];
-fprintf( 'taille trame codée : %d\n', length( trame ) );
+%fprintf( 'taille trame codée : %d\n', length( trame ) );
 
 supertrame = [];
 
@@ -42,8 +42,8 @@ for i = 1:nombre_sous_trame
   signal = bits2signal( sous_trame, tab_alloc, prefixe_cyclique );
 
   taille_signal = length( signal );
-  fprintf( 'Longueur de la trame envoyee dans fonction: %d\n', length( sous_trame ) );
-  fprintf( 'Longueur du signal sortie de la fonction: %d\n', taille_signal );
+  %fprintf( 'Longueur de la trame envoyee dans fonction: %d\n', length( sous_trame ) );
+  %fprintf( 'Longueur du signal sortie de la fonction: %d\n', taille_signal );
 
   % bit2signal crée une sous-trame et la stocke dans supertrame
   supertrame = [supertrame signal];

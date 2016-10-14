@@ -18,11 +18,14 @@ snr_reel=20;
 nombre_sous_trame=68;
 bruit_selectif=false;   %filtre_bruit_ponc(2200,125,275);
 
+%%%%%%%%%
 % Cycle %
 %%%%%%%%%
 
 % Evaluation de la ligne et allocation des bits
-[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel,bruit_selectif); 
+tic;
+[H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel,bruit_selectif);
+toc;
 table_alloc= allocation_bits(SNR);
 
 taille_max_sous_trame=sum(table_alloc);
@@ -58,7 +61,7 @@ suite_bits_supertrame_recue=[];
 for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame
   id1=(i-1)*(length(supertrame_recue)/nombre_sous_trame)+1;
   id2=i*(length(supertrame_recue)/nombre_sous_trame);
-  fprintf('Indice 1 : %d\nIndice 2 : %d', id1, id2);
+  %fprintf('Indice 1 : %d\nIndice 2 : %d', id1, id2);
   x = supertrame_recue(id1:id2);
   [ suite_bits_recu, symbole_recu ] = demodulationDMT(x,H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
   suite_bits_supertrame_recue = [ suite_bits_supertrame_recue suite_bits_recu ]; %suite de bit reçue correspondant à la supertrame
@@ -69,7 +72,7 @@ suite_bits_final = desassemblage_supertrame(suite_bits_supertrame_recue, generat
 %plot(bits_generes); %bits envoyés
 
 fprintf('On genere %d bits et on en recoit %d\n', length(bits_generes), length(suite_bits_final));
-fprintf('Taux erreur final : %d\n', sum(xor(bits_generes, suite_bits_final)));
+fprintf('Taux erreur final : %d\n', (sum(xor(bits_generes, suite_bits_final))/length(suite_bits_final)));
 
 % Réponse impulsionnelle
 figure,freqz(h_canal)

@@ -14,7 +14,7 @@ h_canal=f_transfert(longueur_ligne, diametre_ligne);
 pref_cyclique=length(h_canal)+1;
 % generateur crc
 generateur_crc=[1 0 1 1 1 0 0 0 1];
-snr_reel=60;
+snr_reel=10;
 nombre_sous_trame=2;
 bruit_selectif=false;
 %%%%%%%%%
@@ -43,6 +43,8 @@ nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
 
 
  % --Création de la suite de bits à transmettre
+ % KO à transposer de base en colonne pour éviter l'overprocessing de
+ % transposition dans codage_canal
  bits_generes=gene_bits(nb_bit_init,0.5); % suite de bits à transmettre
 
 % modulation/transmission/démodulation

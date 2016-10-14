@@ -10,22 +10,20 @@ function [ suite_bits, x ] = demodulationDMT( signal_recu, h_eval_mod, nb_canaux
 %
 
 %% Suppression du préfixe cyclique
+% Elapsed time is 0.000007 seconds.
 signal_recu = signal_recu( ( lgre_pref_cyclique + 1 ):( 2*nb_canaux + lgre_pref_cyclique ) );
 
 %% FFT et égalisation du signal
+% Elapsed time is 0.000015 seconds.
 x_fft = fft( signal_recu );
 x = x_fft( 1:nb_canaux ); % suppression des coordonnées conjuguées introduites avant IFFT
 x = x./h_eval_mod; % égalisation
 
 %% Reconstruction des symboles et démodulation
-symb = zeros( 1, nb_canaux ); % Contiendra les symboles sous forme décimale
-for i = 1:nb_canaux
-  symb(i) = qamdemod( x(i), 2^( tab(i) ) );
-end
-
-%% suite de bits
+% Elapsed time is 0.022476 seconds.
 suite_bits = [];
-for j = 1:nb_canaux
-  suite_bits = [ suite_bits decodage_symboles( symb(j), 2^( tab(j) ) ) ];
+for i = 1:nb_canaux
+  M = 2^( tab(i) );
+  symb = qamdemod( x(i), M );
+  suite_bits = [ suite_bits decodage_symboles( symb, M ) ];
 end
-

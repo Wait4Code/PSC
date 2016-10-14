@@ -18,6 +18,7 @@ H_th = H_th( 1:256 );
 % Construction d'une trame de test
 vect_alloc=2*ones(1,nb_canaux); % Tableau d'allocation des bits avec 2 bits par canaux pour l'evaluation
 suite_bits=gene_bits(2*nb_canaux,0.5); % Génération des bits
+
 for i = 0:nb_canaux-1
     suite_symb(i+1)=codage_symb(suite_bits(1+i*2:i*2+2)); % Génération de la valeur décimale des symboles
     suite_symb_QAM(i+1)=modulationQAM(suite_symb(i+1),4); % Génération des coordonnées complexe des symboles

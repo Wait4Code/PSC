@@ -12,7 +12,6 @@ function rs_decoded = rs_decoding( msg, n, k )
 %
 
 deco = comm.RSDecoder( n, k );
-
 deco.BitInput = true;
 
 rs_decoded = step( deco, msg );

@@ -34,11 +34,13 @@ trame = [ codage_canal( fast_buffer_trame, generateur_crc, 0 ) codage_canal( int
 fprintf( 'taille trame codée : %d\n', length( trame ) );
 
 supertrame = [];
+
 % metric on info-e workstations
 % at each loop iteration, elapsed time is 30.014252 seconds.
 for i = 1:nombre_sous_trame
   sous_trame = trame( (i-1)*N+1:i*N );
   signal = bits2signal( sous_trame, tab_alloc, prefixe_cyclique );
+
   taille_signal = length( signal );
   fprintf( 'Longueur de la trame envoyee dans fonction: %d\n', length( sous_trame ) );
   fprintf( 'Longueur du signal sortie de la fonction: %d\n', taille_signal );
@@ -48,4 +50,3 @@ for i = 1:nombre_sous_trame
 end
 
 end
-

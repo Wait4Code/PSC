@@ -13,8 +13,8 @@ fprintf('Taille interleaved buffer %d\n', length(interleaved_buffer_trame));
 trame_deinterleaved = deinterleaver( interleaved_buffer_trame, 3, 2 );
 fprintf('Taille trame deinterleaved : %d\n', length(trame_deinterleaved));
 
-[suite_bits_fast, erreur_fast]=decodage_canal(fast_buffer_trame,generateurCRC);
-[suite_bits_deinterleaved, erreur_deinterleaved] =decodage_canal(trame_deinterleaved,generateurCRC);
+[suite_bits_fast, ~]=decodage_canal(fast_buffer_trame,generateurCRC);
+[suite_bits_deinterleaved, ~] =decodage_canal(trame_deinterleaved,generateurCRC);
 
 disp('Après decodage:');
 fprintf('Taille suite de bit fast : %d\n', length(suite_bits_fast) );

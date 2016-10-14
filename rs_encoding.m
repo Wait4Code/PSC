@@ -25,4 +25,4 @@ function rs_encoded = rs_encoding( msg, n, k )
 enc = comm.RSEncoder( n, k );
 enc.BitInput = true;
 
-rs_encoded = step( enc, msg );
+rs_encoded = step( enc, msg' );

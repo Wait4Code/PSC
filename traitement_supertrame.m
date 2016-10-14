@@ -46,7 +46,8 @@ for i = 1:nombre_sous_trame
   fprintf( 'Longueur du signal sortie de la fonction: %d\n', taille_signal );
 
   % bit2signal crée une sous-trame et la stocke dans supertrame
-  supertrame( (i-1)*taille_signal+1:i*taille_signal ) = signal;
+  supertrame = [supertrame signal];
+  
 end
 
 end

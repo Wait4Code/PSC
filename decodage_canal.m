@@ -19,6 +19,8 @@ taille_trame = length( trame );
 % reed-solomon
 N_check = floor( taille_trame / ( 8 * 224 ) );
 N_rs = floor( taille_trame / ( 8 * 240 ) );
+trame_rs_end = trame( ( N_rs*8*240+1 ):taille_trame );
+
 
 trame_rs = [];
 trame=trame';
@@ -28,6 +30,7 @@ if N_check > 0
     encoded = rs_decoding( trame((i-1)*8*240+1:i*8*240), 240, 224 );
     trame_rs = [ trame_rs encoded' ];
   end
+  trame_rs=[trame_rs trame_rs_end];
 else
   trame_rs = trame';
 end

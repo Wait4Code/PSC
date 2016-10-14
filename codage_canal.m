@@ -38,7 +38,7 @@ if N_rs > 0
     encoded_trame = rs_encoding( trame_crc((i-1)*8*224+1:i*8*224), 240, 224 );
     trame_rs = [ trame_rs encoded_trame' ];
   end
-  trame_rs_total = [ trame_rs trame_rs_end' ];
+  trame_rs_total = [ trame_rs trame_rs_end ];
 else
   % sinon on met juste le codage CRC et on continue
   trame_rs_total = trame_crc;

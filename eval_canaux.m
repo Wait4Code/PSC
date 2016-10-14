@@ -26,10 +26,8 @@ end
 
 x_mod = modulationDMT( suite_symb_QAM, nb_canaux, pref_cycl );
 
-
-% initializing some variables for performance purposes
-h_eval_mod = ones( 1, nb_canaux ); % constant used by demodulationDMT
-                                   % we can do better here... see demodulationDMT
+%le canal n'est pas encore evalué ici donc h = tableau de 1 (=> egalisation)
+h_tab_ones = ones( 1, nb_canaux );
 
 H_moy = zeros( 1, nb_canaux );
 bruit_moy = zeros( 1, nb_canaux );
@@ -44,7 +42,7 @@ for k=1:nb_canaux
         y_recu = ligne( x_mod, h_reel, snr_reel, bruit_selectif );
         
         % Elapsed time is 0.019520 seconds ( on info b workstations )
-        [ ~, symboles_recu ] = demodulationDMT( y_recu, h_eval_mod, nb_canaux, pref_cycl, vect_alloc );
+        [ suite_bits_recue, symboles_recu ] = demodulationDMT( y_recu, h_tab_ones, nb_canaux, pref_cycl, vect_alloc );
         
         x_recu_total(i) = symboles_recu(k);
         
@@ -86,11 +84,15 @@ for k = 1:nb_canaux
   SNR(k) = ( suite_symb_abs(k) * H_moy_abs(k) ) / bruit_moy(k);
 end
 
+fprintf('Taux erreur eval_canaux : %d\n', sum(xor(suite_bits,suite_bits_recue)));
+
+%fprintf('SNR des canaux = %d\n', error);
+
 figure();
 plot( SNR );
 title('SNR');
 
-fprintf('SNR des canaux =\n');
+disp('SNR des canaux = \n');
 disp(SNR);
 
 end

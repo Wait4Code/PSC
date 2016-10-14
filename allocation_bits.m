@@ -19,19 +19,16 @@ nb_canaux = length( snr );
 b = zeros( 1, nb_canaux );
 
 for i = 7:nb_canaux
-  b( i ) = round( log2( 1 + snr( i ) / ( snr_gap * gamma ) ) );
+  b(i) = round( log2( 1 + snr(i) / ( snr_gap * gamma ) ) );
 
-  if b( i ) < 0
-    b( i ) = 0;
-  elseif b( i ) > 15
-    b( i ) = 15;
+  if b(i) < 0
+    b(i) = 0;
+  elseif b(i) > 15
+    b(i) = 15;
   end
 end
-b(32)=0;
-b(64)=0;
 
-% message= sprintf('bits des canaux =');
-% disp(message);
-% disp(b);
+fprintf('bits des canaux =');
+disp(b);
 
 end

@@ -18,7 +18,7 @@ H_th = H_th( 1:256 );
 % Construction d'une trame de test
 vect_alloc=2*ones(1,nb_canaux); % Tableau d'allocation des bits avec 2 bits par canaux pour l'evaluation
 suite_bits=gene_bits(2*nb_canaux,0.5); % Génération des bits
-for i= 0:nb_canaux-1
+for i = 0:nb_canaux-1
     suite_symb(i+1)=codage_symb(suite_bits(1+i*2:i*2+2)); % Génération de la valeur décimale des symboles
     suite_symb_QAM(i+1)=modulationQAM(suite_symb(i+1),4); % Génération des coordonnées complexe des symboles
 end
@@ -39,19 +39,16 @@ x_recu_total = zeros( 1, nb_trame_test );
 for k=1:nb_canaux
     % on envoie 30 trames de test
     for i = 1:nb_trame_test
-        % Elapsed time is 0.000452 seconds.
+        % Elapsed time is 0.000452 seconds  ( on info b workstations )
         y_recu = ligne( x_mod, h_reel, snr_reel, bruit_selectif );
         
-        % Elapsed time is 0.019520 seconds.
-        tic;
+        % Elapsed time is 0.019520 seconds ( on info b workstations )
         [ ~, symboles_recu ] = demodulationDMT( y_recu, h_eval_mod, nb_canaux, pref_cycl, vect_alloc );
-        toc;
         
         x_recu_total(i) = symboles_recu(k);
         
         H(k)=H(k)+symboles_recu(k)/suite_symb_QAM(k);
     end
-
     H_moy(k)= H(k)/nb_trame_test;
     
     % calcul du bruit
@@ -84,12 +81,12 @@ H_moy_abs = abs(H_moy);
 % title('Bruit_th');
 
 %Calcul du SNR
-for k=1:nb_canaux
-    SNR(k)=suite_symb_abs(k)*H_moy_abs(k)/bruit_moy(k);
+for k = 1:nb_canaux
+  SNR(k) = ( suite_symb_abs(k) * H_moy_abs(k) ) / bruit_moy(k);
 end
 
 figure();
-plot(SNR);
+plot( SNR );
 title('SNR');
 
 fprintf('SNR des canaux =\n');

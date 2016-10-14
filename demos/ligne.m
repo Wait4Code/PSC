@@ -1,4 +1,4 @@
-%fonction de transfert du canal
+% fonction de transfert du canal
 h=f_transfert(3000,0.0005);
 f1=1;
 f2=100;
@@ -12,8 +12,8 @@ sig4=sin(2*pi*f4*t);
 sig=sig1+sig2+sig3;
 SIG=fft(sig);
 
-%paramètres du filtre bande stop
-Fs=400; %doit être égal à 2 fois la fréquence max
+% paramÃ©tres du filtre bande stop
+Fs=400; % doit Ãªtre Ã©gal Ã  2 fois la frÃ©quence max
 Fpass1=50;
 Fstop1=75;
 Fstop2=125;
@@ -21,33 +21,27 @@ Fpass2=150;
 
 Hbp=filtre_bruit_ponc(Fs,Fpass1,Fstop1,Fstop2,Fpass2);
 
-%Exemple en mettant false, pas de bruit ponctuel :
-%Se=ligne(sig,h(1:60),10,false);
+% Exemple en mettant false, pas de bruit ponctuel :
+% Se=ligne(sig,h(1:60),10,false);
 Se=ligne(sig,h(1:60),10,Hbp);
 
-%{
 figure(1)
 plot(sig)
 title('Signal modulÃ©');
-%}
-%{
+
 figure(2)
 plot(Se);
 title('Signal en sortie de ligne');
-%}
-%{%}
+
 figure(3)
 plot(abs(SIG));
 title('FFT signal modulÃ©');
-%}
-%{%}
+
 figure(4)
 SE=fft(Se);
 plot(abs(SE));
 title('FFT en sortie de ligne');
-%}
-%{
+
 figure(5)
 plot(abs(h));
-title('Réponse impulsionnelle du canal');
-%}
+title('RÃ©ponse impulsionnelle du canal');

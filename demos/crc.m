@@ -1,7 +1,7 @@
 addpath( '..' );
 
 generator = [ 1 0 1 1 1 0 0 0 1 ];
-msg = [ 0 1 0 1 1 0 1 0 1 ];
+msg = [ 0; 1; 0; 1; 1; 0; 1; 0; 1 ];
 
 y = codage_crc( msg, generator );
 

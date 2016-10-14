@@ -15,29 +15,26 @@ function x = bits2signal( sous_trame, tab_alloc, prefixe_cyclique )
 %
 
 N = length( tab_alloc ); % nb de canaux
-message= sprintf('taille dune sous-trame:%d\n',length(sous_trame));
-disp(message);
+fprintf( 'taille sous-trame: %d\n', length( sous_trame ) );
 
-suite_symb = zeros(1,N);
-suite_symb_QAM = zeros(1,N);
+suite_symb = zeros( 1, N );
+suite_symb_QAM = zeros( 1, N );
 
+% wtf is that?!
 k = 1;
 i=1;
 
+% metrics on info-e workstations
+% qammod and modulationQAM are almost the same ( elapsed time is 11.794157 seconds )
 for i = 1:N
-  if tab_alloc(i)~=0
-      sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
-      fprintf(' numero canal :%d\n',i);
-      suite_symb(i) = codage_symb(sousTrame);
-      suite_symb_QAM(i) = modulationQAM( suite_symb(i), 2^( tab_alloc(i) ) ); % contient tout les symboles complexes d'une sous-trame sans le préfixe cyclique
-      k = k + tab_alloc(i);
-      %%%%
-      %TEST GUILLAUME POUR LENTEURS
-      %sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
-      %fprintf(' numero canal :%d\n',i);
-      %suite_symb_QAM(i) = qammod(bin2dec(num2str(sousTrame)),2^(tab_alloc(i)))*50;
-      %k = k + tab_alloc(i);
-      %%%%
+  if tab_alloc(i) ~= 0
+    sousTrame = sous_trame( k:k+tab_alloc(i)-1 );
+    fprintf( 'numero canal: %d\n', i );
+    suite_symb(i) = codage_symb(sousTrame);
+
+    % contient tout les symboles complexes d'une sous-trame sans le préfixe cyclique
+    suite_symb_QAM(i) = modulationQAM( suite_symb(i), 2^( tab_alloc(i) ) );
+    k = k + tab_alloc(i);
   end
 end
 

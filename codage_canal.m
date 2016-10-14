@@ -15,37 +15,41 @@ function suite_bits_codee = codage_canal( suite_bits, generateur_crc, type_buffe
 % codage_canal( [ 0 1 0 1 1 1 0 0 0 ], [ 1 0 1 1 1 0 0 0 1 ], 1 )
 %
 
+% wtf is that?!
 % suite_bits_codee = codage_canal( [ 0 1 0 1 1 0 1 1 ], [ 1 ], 1)
-%Ajout du codage CRC
-trame_crc = codage_crc( suite_bits, generateur_crc );
+
+% ajout du codage CRC
+% warning matrix transposition MAYBE causes performance issues
+% the same for the following lines...
+trame_crc = codage_crc( suite_bits', generateur_crc );
+
 taille_trame = length( trame_crc );
-disp('after crc:');
-disp(taille_trame);
+fprintf( 'after crc: %d\n', length( trame_crc ) );
+
 % reed-solomon
 N_rs = floor( taille_trame / ( 8 * 224 ) );
-trame_rs_end=trame_crc(N_rs*8*224+1:taille_trame);
+trame_rs_end = trame_crc( ( N_rs*8*224+1 ):taille_trame );
 trame_rs = [];
 
-if N_rs > 0 %Si la trame est assez grande pour réaliser un codage RS
+% si la trame est assez grande pour réaliser un codage RS
+if N_rs > 0
   for i = 1:N_rs
     encoded_trame = rs_encoding( trame_crc((i-1)*8*224+1:i*8*224), 240, 224 );
     trame_rs = [ trame_rs encoded_trame' ];
   end
-  trame_rs_total= [ trame_rs trame_rs_end' ];
-  
+  trame_rs_total = [ trame_rs trame_rs_end' ];
 else
-    trame_rs_total = trame_crc; % Si la trame n'est pas assez grande pour un codage RS
+  % sinon on met juste le codage CRC et on continue
+  trame_rs_total = trame_crc;
 end
 trame_finale = trame_rs_total;
 
-disp('after rs:');
-disp(length(trame_finale));
+fprintf( 'after rs: %d\n', length( trame_finale ));
 
-
-if type_buffer == 1    %Si il s'agit du buffer_interleaved
+% Si il s'agit du buffer_interleaved
+if type_buffer == 1
   trame_finale = interleaver( trame_finale, 3, 2 );
-  disp('after interleaver:');
-  disp(length(trame_finale));
+  fprintf( 'after interleaver: %d\n', length( trame_finale ) );
 end
 
 suite_bits_codee = trame_finale;

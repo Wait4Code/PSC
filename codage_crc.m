@@ -19,4 +19,4 @@ function trame_code = codage_crc( trame, generateur )
 
 g = comm.CRCGenerator( generateur );
 
-trame_code = step( g, trame' );
+trame_code = step( g, trame );

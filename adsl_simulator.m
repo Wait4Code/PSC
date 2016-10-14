@@ -53,14 +53,14 @@ supertrame_recue=ligne(supertrame,h_canal,snr_reel, bruit_selectif); % Transmiss
 %fprintf('Taille supertram recue : %d\n', length(supertrame_recue));
 suite_bits_supertrame_recue=[];
 for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame
-    %id1=(i-1)*(length(supertrame_recue)/nombre_sous_trame)+1;
-    %id2=i*(length(supertrame_recue)/nombre_sous_trame);
-    %fprintf('Indice 1 : %d\nIndice 2 : %d', id1, id2);
-    [suite_bits_recu,symbole_recu]=demodulationDMT(supertrame_recue((i-1)*length(supertrame_recue)/nombre_sous_trame+1:i*length(supertrame_recue)/nombre_sous_trame),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
-    suite_bits_supertrame_recue= [suite_bits_supertrame_recue suite_bits_recu]; %suite de bit reçue correspondant à la supertrame
+  %id1=(i-1)*(length(supertrame_recue)/nombre_sous_trame)+1;
+  %id2=i*(length(supertrame_recue)/nombre_sous_trame);
+  %fprintf('Indice 1 : %d\nIndice 2 : %d', id1, id2);
+  [ suite_bits_recu, symbole_recu ] = demodulationDMT(supertrame_recue((i-1)*length(supertrame_recue)/nombre_sous_trame+1:i*length(supertrame_recue)/nombre_sous_trame),H_moy,nb_canaux,pref_cyclique,table_alloc); % Démodulation DMT (suppression du PC, parallélisation, FFT, égalisation et sérialisation)
+  suite_bits_supertrame_recue = [ suite_bits_supertrame_recue suite_bits_recu ]; %suite de bit reçue correspondant à la supertrame
 end
 
-suite_bits_final=desassemblage_supertrame(suite_bits_supertrame_recue, generateur_crc); % deinterleaver / decodage rs / décodage crc
+suite_bits_final = desassemblage_supertrame(suite_bits_supertrame_recue, generateur_crc); % deinterleaver / decodage rs / décodage crc
 plot(suite_bits_final); %bits reçu
 plot(bits_generes); %bits envoyés
     

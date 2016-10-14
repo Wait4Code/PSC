@@ -1,6 +1,4 @@
 function [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_reel,pref_cycl,snr_reel,bruit_selectif)
-
-disp('started');tic;
 % Elapsed time is 60.875901 seconds.
 
 % L'objectif est de calculer le SNR de chaque canal et de récupérer le
@@ -97,5 +95,4 @@ figure();
 plot( SNR );
 title('SNR');
 
-toc;
 end

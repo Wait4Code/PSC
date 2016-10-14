@@ -1,11 +1,28 @@
 % Exemple de cycle émission/réception.
 
-
-%%%%%%%%%%%%%%%%%%
-% Initialisation %
-%%%%%%%%%%%%%%%%%%
-longueur_ligne=3000;
+%% Initialisation
+longueur_ligne = 3000;
 diametre_ligne=0.0005;
+snr_reel=20;
+bruit_selectif=false;
+
+settings = inputdlg({'Longueur de ligne (m) [3000] :','Diamètre de la ligne (m) [0.0005] :','SNR (dB): [20]', 'Bruit sélectif aléatoire (oui ou non) [non]'},'Choix paramètres : ');
+
+if isempty( settings{1} ) == 0
+  longueur_ligne = str2double( settings{1} );
+end
+if isempty( settings{2} ) == 0
+  diametre_ligne = str2double( settings{2} );
+end
+if isempty( settings{3} ) == 0
+  snr_reel = str2double( settings{3} );
+end
+if isempty( settings{4} ) == 0
+  if settings{4} == 'oui'
+    bruit_selectif=filtre_bruit_ponc(2200,125,275);
+  end
+end
+
 % préciser nombre de canaux
 nb_canaux= 256; %nombre de canaux
 % récupération de la réponse impulsionnelle du canal
@@ -14,18 +31,12 @@ h_canal=f_transfert(longueur_ligne, diametre_ligne);
 pref_cyclique=length(h_canal)+1;
 % generateur crc
 generateur_crc=[1 0 1 1 1 0 0 0 1];
-snr_reel=20;
 nombre_sous_trame=68;
-bruit_selectif=false;   %filtre_bruit_ponc(2200,125,275);
 
-%%%%%%%%%
-% Cycle %
-%%%%%%%%%
 
+%% Transmission du signal
 % Evaluation de la ligne et allocation des bits
-tic;
 [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel,bruit_selectif);
-toc;
 table_alloc= allocation_bits(SNR);
 
 taille_max_sous_trame=sum(table_alloc);
@@ -74,15 +85,12 @@ suite_bits_final = desassemblage_supertrame(suite_bits_supertrame_recue, generat
 fprintf('On genere %d bits et on en recoit %d\n', length(bits_generes), length(suite_bits_final));
 fprintf('Taux erreur final : %d\n', (sum(xor(bits_generes, suite_bits_final))/length(suite_bits_final)));
 
-% Réponse impulsionnelle
-figure,freqz(h_canal)
-title('Réponse impulsionnelle du canal');
 
 % Répartition des bits
-figure,bar(table_alloc,'w');
-title('Allocation des bits');
-xlabel('Numéro canal');
-ylabel('Bits/canal');
+% figure,bar(table_alloc,'w');
+% title('Allocation des bits');
+% xlabel('Numéro canal');
+% ylabel('Bits/canal');
 
 % signal modulé et démodulé
 figure,subplot(2,1,1),stem(bits_generes(1:500));

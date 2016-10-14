@@ -32,3 +32,4 @@ H=[H 0 conj(fliplr(H(2:length(H)-1)))];
 %Passage en temporel
 h=abs(ifft(H));
 h=h(1:100);
+plot(h);

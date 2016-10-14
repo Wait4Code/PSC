@@ -22,7 +22,6 @@ suite_symb_QAM = zeros( 1, N );
 
 % wtf is that?!
 k = 1;
-i=1;
 
 % metrics on info-e workstations
 % qammod and modulationQAM are almost the same ( elapsed time is 11.794157 seconds )
@@ -38,5 +37,5 @@ for i = 1:N
   end
 end
 
-x = modulationDMT( suite_symb_QAM, N, prefixe_cyclique ); % modulation dmt d'une sous-trame
-
+% modulation dmt d'une sous-trame
+x = modulationDMT( suite_symb_QAM, N, prefixe_cyclique );

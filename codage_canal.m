@@ -22,6 +22,7 @@ function suite_bits_codee = codage_canal( suite_bits, generateur_crc, type_buffe
 % warning matrix transposition MAYBE causes performance issues
 % the same for the following lines...
 trame_crc = codage_crc( suite_bits', generateur_crc );
+trame_crc = trame_crc';
 
 taille_trame = length( trame_crc );
 fprintf( 'after crc: %d\n', length( trame_crc ) );

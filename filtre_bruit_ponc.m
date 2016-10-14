@@ -1,4 +1,4 @@
-function Hd = filtre_bruit_ponc(Fs,Fpass1,Fstop1,Fstop2,Fpass2)
+function Hd = filtre_bruit_ponc(Fs,Fstop1,Fstop2)
 %FILTRE_BRUIT_PONC Returns a discrete-time filter object.
 
 % MATLAB Code
@@ -10,12 +10,12 @@ function Hd = filtre_bruit_ponc(Fs,Fpass1,Fstop1,Fstop2,Fpass2)
 % All frequency values are in Hz.
 %Fs = 400;  % Sampling Frequency
 
-%Fpass1 = 50;              % First Passband Frequency
+Fpass1 = Fstop1-50;              % First Passband Frequency
 %Fstop1 = 75;              % First Stopband Frequency
 %Fstop2 = 125;             % Second Stopband Frequency
-%Fpass2 = 150;             % Second Passband Frequency
+Fpass2 = Fstop2+50;             % Second Passband Frequency
 Dpass1 = 0.028774368332;  % First Passband Ripple
-Dstop  = 0.001;           % Stopband Attenuation
+Dstop  = 0.1;           % Stopband Attenuation
 Dpass2 = 0.057501127785;  % Second Passband Ripple
 dens   = 20;              % Density Factor
 

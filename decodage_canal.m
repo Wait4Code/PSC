@@ -37,6 +37,5 @@ end
 
 [ trame_decode, err ] = decodage_crc( trame_rs, generateur_crc );
 
-
 suite_bits_decodee=trame_decode;
 

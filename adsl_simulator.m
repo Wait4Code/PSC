@@ -16,7 +16,7 @@ pref_cyclique=length(h_canal)+1;
 generateur_crc=[1 0 1 1 1 0 0 0 1];
 snr_reel=40;
 nombre_sous_trame=4;
-bruit_selectif=filtre_bruit_ponc(2200,125,275);
+bruit_selectif=false;   %filtre_bruit_ponc(2200,125,275);
 
 % Cycle %
 %%%%%%%%%

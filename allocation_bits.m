@@ -33,7 +33,9 @@ b(32)=0;        % Réservé pour la séparation des flux montant et descendant
 b(16)=0;        % Signal pilote
 b(64)=0;        % Signal pilote
 
-fprintf('bits des canaux =');
+
+figure();
 stem(b);
+title('Répartition bits par canal');
 
 end

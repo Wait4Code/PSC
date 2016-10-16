@@ -1,11 +1,12 @@
 % Exemple de cycle émission/réception.
 
 %% Initialisation
+B=4.3125*10^3; %largeur de bande d'un canal
 longueur_ligne = 3000;
 diametre_ligne=0.0005;
 snr_reel=20;
 bruit_selectif=false;
-
+disp('Début de la simulation');
 settings = inputdlg({'Longueur de ligne (m) [3000] :','Diamètre de la ligne (m) [0.0005] :','SNR (dB): [20]', 'Bruit sélectif aléatoire (oui ou non) [non]'},'Choix paramètres : ');
 
 if isempty( settings ) == 0
@@ -28,6 +29,7 @@ end
 % préciser nombre de canaux
 nb_canaux= 256;
 % récupération de la réponse impulsionnelle du canal
+disp('Calcule de la réponse impulsionnelle du canal...'); 
 h_canal=f_transfert(longueur_ligne, diametre_ligne);
 % taille préfixe cyclique
 pref_cyclique=length(h_canal)+1;
@@ -38,13 +40,15 @@ nombre_sous_trame=68;
 
 
 %% Transmission du signal
+
+disp('Evaluation de la ligne en cours...');
 % Evaluation de la ligne et allocation des bits
 [H_moy,H_moy_abs,SNR]=eval_canaux(nb_canaux,h_canal,pref_cyclique,snr_reel,bruit_selectif);
 table_alloc= allocation_bits(SNR);
 
 taille_max_sous_trame=sum(table_alloc);
-fprintf('taille maximale de la sous-trame:%d\n',taille_max_sous_trame);
-fprintf('taille maximale de la supertrame:%d\n',taille_max_sous_trame*nombre_sous_trame);
+%fprintf('taille maximale de la sous-trame:%d\n',taille_max_sous_trame);
+%fprintf('taille maximale de la supertrame:%d\n',taille_max_sous_trame*nombre_sous_trame);
 
 % calcule nb de bits initial à generer %
 
@@ -65,13 +69,25 @@ nb_bit_init = taille_fast_buffer + taille_interleaver_buffer;
  bits_generes=gene_bits(nb_bit_init,0.5); % suite de bits à transmettre
 
 % modulation/transmission/démodulation
+disp('Construction de la supertrame...');
+disp('Codage CRC...');
+disp('Codage RS...');
+disp('Entrelassement...');
+disp('Modulation DMT...');
 supertrame = traitement_supertrame( bits_generes, generateur_crc, table_alloc, pref_cyclique,nombre_sous_trame);
+disp('Envoi de la supertrame');
 supertrame_recue=ligne(supertrame,h_canal,snr_reel, bruit_selectif); % Transmission sur le canal ATTENTION: supertrame est un tableau de 68 sous-trames (signal en temps)
+disp('Réception de la supertrame');
 supertrame_recue=supertrame_recue(1:length(supertrame_recue)-(length(h_canal)-1));
-fprintf('Taille supertrame recue apres canal %d\n', length(supertrame_recue));
+%fprintf('Taille supertrame recue apres canal %d\n', length(supertrame_recue));
 %fprintf('Taille supertrame : %d\n', length(supertrame));
 %fprintf('Taille supertram recue : %d\n', length(supertrame_recue));
 suite_bits_supertrame_recue=[];
+disp('Déassemblage de la supertrame...');
+disp('Démodulation DMT...');
+disp('Désentrelassement...');
+disp('Décodage RS...');
+disp('Décodage CRC...');
 for i= 1:nombre_sous_trame %68 sous-trame dans 1 supertrame
   id1=(i-1)*(length(supertrame_recue)/nombre_sous_trame)+1;
   id2=i*(length(supertrame_recue)/nombre_sous_trame);
@@ -87,8 +103,8 @@ suite_bits_final = desassemblage_supertrame(suite_bits_supertrame_recue, generat
 
 fprintf('On genere %d bits et on en recoit %d\n', length(bits_generes), length(suite_bits_final));
 fprintf('Taux erreur final : %d\n', (sum(xor(bits_generes, suite_bits_final))/length(suite_bits_final)));
-
-
+fprintf('Débit brut par sous-trame: %d\n', 68*sum(table_alloc)/(17*10^-3)); %débit brut d'une supertrame (une supertrame dure 17^-3 s)
+fprintf('Débit utile par sous-trame: %d\n', nb_bit_init/(17*10^-3)); %débit utile d'une supertrame (une supertrame dure 17^-3 s)
 % Répartition des bits
 % figure,bar(table_alloc,'w');
 % title('Allocation des bits');
@@ -96,11 +112,13 @@ fprintf('Taux erreur final : %d\n', (sum(xor(bits_generes, suite_bits_final))/le
 % ylabel('Bits/canal');
 
 % signal modulé et démodulé
-figure,subplot(2,1,1),stem(bits_generes(1:500));
+figure,subplot(2,1,1),stem(bits_generes(1:2000));
 title('Comparaison signal entrant/signal démodulé');
 ylabel('valeur');
 xlabel('Canaux');
-subplot(2,1,2),stem(suite_bits_final(1:500));
+subplot(2,1,2),stem(suite_bits_final(1:2000));
 ylabel('valeur');
 xlabel('Canaux');
+
+disp('Merci d avoir utilisé adsl_simulator');
 

@@ -27,4 +27,4 @@ dens   = 20;              % Density Factor
 b  = firpm(N, Fo, Ao, W, {dens});
 Hd = dfilt.dffir(b);
 
-% [EOF]
+end

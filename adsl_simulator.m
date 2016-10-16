@@ -24,13 +24,14 @@ if isempty( settings{4} ) == 0
 end
 
 % préciser nombre de canaux
-nb_canaux= 256; %nombre de canaux
+nb_canaux= 256;
 % récupération de la réponse impulsionnelle du canal
 h_canal=f_transfert(longueur_ligne, diametre_ligne);
 % taille préfixe cyclique
 pref_cyclique=length(h_canal)+1;
 % generateur crc
 generateur_crc=[1 0 1 1 1 0 0 0 1];
+% préciser nombre de sous trame
 nombre_sous_trame=68;
 
 

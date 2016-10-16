@@ -15,7 +15,7 @@ snr_gap = 10^( 9.5 / 10 ); % autour de 9.5 db pour Pe=10e-7 sur une QAM
 gamma = 10^( 6 / 10 ); % autour de 6 db environ : La marge du rapport signal sur bruit
 nb_canaux = length( snr );
 
-% number of bits per channel
+% nombre de bits par cannal
 b = zeros( 1, nb_canaux );
 
 for i = 7:nb_canaux

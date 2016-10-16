@@ -20,11 +20,8 @@ N = length( tab_alloc ); % nb de canaux
 suite_symb = zeros( 1, N );
 suite_symb_QAM = zeros( 1, N );
 
-% wtf is that?!
 k = 1;
 
-% metrics on info-e workstations
-% qammod and modulationQAM are almost the same ( elapsed time is 11.794157 seconds )
 for i = 1:N
   if tab_alloc(i) ~= 0
     sousTrame = sous_trame( k:k+tab_alloc(i)-1 );

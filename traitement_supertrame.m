@@ -35,8 +35,6 @@ trame = [ codage_canal( fast_buffer_trame, generateur_crc, 0 ) codage_canal( int
 
 supertrame = [];
 
-% metric on info-e workstations
-% at each loop iteration, elapsed time is 30.014252 seconds.
 for i = 1:nombre_sous_trame
   sous_trame = trame( (i-1)*N+1:i*N );
   signal = bits2signal( sous_trame, tab_alloc, prefixe_cyclique );

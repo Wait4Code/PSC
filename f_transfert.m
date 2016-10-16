@@ -27,7 +27,7 @@ gamma=(alpha + 1i*beta);
 H=exp(-gamma*l);
 
 %ajout du symetrique de la réponse en frequence pour avoir un h(t)
-%p�riodique
+%périodique
 H=[H 0 conj(fliplr(H(2:length(H)-1)))];
 %Passage en temporel
 h=abs(ifft(H));

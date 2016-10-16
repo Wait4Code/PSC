@@ -15,12 +15,7 @@ function suite_bits_codee = codage_canal( suite_bits, generateur_crc, type_buffe
 % codage_canal( [ 0 1 0 1 1 1 0 0 0 ], [ 1 0 1 1 1 0 0 0 1 ], 1 )
 %
 
-% wtf is that?!
-% suite_bits_codee = codage_canal( [ 0 1 0 1 1 0 1 1 ], [ 1 ], 1)
-
 % ajout du codage CRC
-% warning matrix transposition MAYBE causes performance issues
-% the same for the following lines...
 trame_crc = codage_crc( suite_bits', generateur_crc );
 trame_crc = trame_crc';
 

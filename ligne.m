@@ -18,11 +18,19 @@ sig_bruite  [vecteur] signal en sortie de ligne
 %}
 
 sig_att = conv2(sig_mod,h); %att�nuation du signal par la ligne
-sig_bruite_blanc = awgn(sig_att, snr, 'measured'); %bruitage blanc
+% sig_bruite_blanc = awgn(sig_att, snr, 'measured'); %bruitage blanc
+% 
+% if filtre_ponc == false
+%     sig_fin_de_ligne = sig_bruite_blanc;
+% else
+%     sig_fin_de_ligne = filter(filtre_ponc,sig_bruite_blanc);
+% end
 
 if filtre_ponc == false
-    sig_fin_de_ligne = sig_bruite_blanc;
+    sig_bruite_blanc = sig_att;
 else
-    sig_fin_de_ligne = filter(filtre_ponc,sig_bruite_blanc);
+    sig_bruite_blanc = filter(filtre_ponc,sig_att);
 end
+
+sig_fin_de_ligne = awgn(sig_bruite_blanc, snr, 'measured'); %bruitage blanc
 

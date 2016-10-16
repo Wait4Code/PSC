@@ -2,22 +2,22 @@ addpath( '..' );
 
 % fonction de transfert du canal
 h=f_transfert(3000,0.0005);
-f1=1;
-f2=100;
-f3=200;
-f4=300;
+f1=50;
+f2=50;
+f3=100;
+f4=150;
 t=0:0.001:10*pi*2;
 sig1=sin(2*pi*f1*t);
 sig2=sin(2*pi*f2*t);
 sig3=sin(2*pi*f3*t);
 sig4=sin(2*pi*f4*t);
-sig=sig1+sig2+sig3;
+sig=sig2+sig3+sig4;
 SIG=fft(sig);
 
 % paramétres du filtre bande stop
-Fs=400; % doit être égal à 2 fois la fréquence max
-Fstop1=75;
-Fstop2=125;
+Fs=600; % doit être égal à 2 fois la fréquence max
+Fstop1=90;
+Fstop2=110;
 
 Hbp=filtre_bruit_ponc(Fs,Fstop1,Fstop2);
 

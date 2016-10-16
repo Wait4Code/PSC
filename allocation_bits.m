@@ -28,7 +28,12 @@ for i = 7:nb_canaux
   end
 end
 
+%bits reservés
+b(32)=0;        % Réservé pour la séparation des flux montant et descendant
+b(16)=0;        % Signal pilote
+b(64)=0;        % Signal pilote
+
 fprintf('bits des canaux =');
-disp(b);
+stem(b);
 
 end

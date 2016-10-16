@@ -72,11 +72,11 @@ title('Hmoy');
 figure();
 plot(abs(H_th));
 title('Hth');
-% 
-% figure();
-% plot(bruit_moy);
-% title('Bruit');
-% 
+
+figure();
+plot(bruit_moy);
+title('Bruit');
+
 % figure();
 % plot(bruit_moy_th);
 % title('Bruit_th');

@@ -8,18 +8,20 @@ bruit_selectif=false;
 
 settings = inputdlg({'Longueur de ligne (m) [3000] :','Diamètre de la ligne (m) [0.0005] :','SNR (dB): [20]', 'Bruit sélectif aléatoire (oui ou non) [non]'},'Choix paramètres : ');
 
-if isempty( settings{1} ) == 0
-  longueur_ligne = str2double( settings{1} );
-end
-if isempty( settings{2} ) == 0
-  diametre_ligne = str2double( settings{2} );
-end
-if isempty( settings{3} ) == 0
-  snr_reel = str2double( settings{3} );
-end
-if isempty( settings{4} ) == 0
-  if settings{4} == 'oui'
-    bruit_selectif=filtre_bruit_ponc(2200,125,275);
+if isempty( settings ) == 0
+  if isempty( settings{1} ) == 0
+    longueur_ligne = str2double( settings{1} );
+  end
+  if isempty( settings{2} ) == 0
+    diametre_ligne = str2double( settings{2} );
+  end
+  if isempty( settings{3} ) == 0
+    snr_reel = str2double( settings{3} );
+  end
+  if isempty( settings{4} ) == 0
+    if settings{4} == 'oui'
+      bruit_selectif=filtre_bruit_ponc(2200,125,275);
+    end
   end
 end
 

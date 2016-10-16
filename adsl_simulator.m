@@ -29,7 +29,7 @@ end
 % préciser nombre de canaux
 nb_canaux= 256;
 % récupération de la réponse impulsionnelle du canal
-disp('Calcule de la réponse impulsionnelle du canal...'); 
+disp('Calcule de la réponse impulsionnelle du canal...');
 h_canal=f_transfert(longueur_ligne, diametre_ligne);
 % taille préfixe cyclique
 pref_cyclique=length(h_canal)+1;
@@ -112,11 +112,11 @@ fprintf('Débit utile par sous-trame: %d\n', nb_bit_init/(17*10^-3)); %débit ut
 % ylabel('Bits/canal');
 
 % signal modulé et démodulé
-figure,subplot(2,1,1),stem(bits_generes(1:2000));
+figure,subplot(2,1,1),stem(bits_generes(1:floor(nb_bit_init/20)));
 title('Comparaison signal entrant/signal démodulé');
 ylabel('valeur');
 xlabel('Canaux');
-subplot(2,1,2),stem(suite_bits_final(1:2000));
+subplot(2,1,2),stem(suite_bits_final(1:floor(nb_bit_init/20)));
 ylabel('valeur');
 xlabel('Canaux');
 

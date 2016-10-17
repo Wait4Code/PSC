@@ -26,6 +26,7 @@ title( 'Taille en entrée et de sortie de l''entrelaceur' );
 % test d'un signal en entrée et en sortie de l'entrelaceur
 x = [ 1 0 0 0 0 0 1 1 1 1 1 1 0 1 0 1 1 1 1 0 0 0 ];
 y = interleaver( x, nrows, slope );
+init = deinterleaver( y, nrows, slope);
 
 subplot( 3, 1, 2 );
 stairs( x );
@@ -37,6 +38,19 @@ stairs( y );
 axis( [ 1 inf -0.5 1.5 ] );
 title( 'Signal en sortie de l''entrelaceur' );
 
-fprintf( 'taille en entrée: %d\n', length( x ) );
-fprintf( 'taille en sortie: %d\n', length( y ) );
+fprintf( 'taille en entrée de l''entrelaceur : %d\n', length( x ) );
+fprintf( 'taille en sortie de l''entrelaceur : %d\n', length( y ) );
 
+figure;
+subplot( 3, 1, 1 );
+stairs( y );
+axis( [ 1 inf -0.5 1.5 ] );
+title( 'Signal en entrée du desentrelaceur' );
+
+subplot( 2, 1, 2 );
+stairs( init );
+axis( [ 1 inf -0.5 1.5 ] );
+title( 'Signal en sortie du desentrelaceur' );
+
+fprintf( 'taille en entrée du desentrelaceur : %d\n', length( y ) );
+fprintf( 'taille en sortie  du desentrelaceur: %d\n', length( init ) );
